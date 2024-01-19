@@ -8,7 +8,7 @@ import logo from '../public/assets/cdD.png'
 import cls from 'classnames'
 import { useAuth } from '../context/authContext'
 
-export default function Navbars() {
+export default function Navbars({ opcion1, user }) {
 
     const { logout, currentUser } = useAuth()
 
@@ -37,6 +37,16 @@ export default function Navbars() {
             <Offcanvas.Body>
                 <Button variant="transparent" onClick={logout}>
                     Log Out
+                </Button>
+                {user == 'admin' ? (
+                    <Button variant="transparent" onClick={opcion1}>
+                        Problemas y Oportunidades de Crecimiento
+                    </Button>
+                ) :
+                    (<div></div>)
+                }
+                <Button variant="transparent" onClick={opcion1}>
+                    Problemas y Oportunidades de Crecimiento
                 </Button>
             </Offcanvas.Body>
         </Offcanvas>

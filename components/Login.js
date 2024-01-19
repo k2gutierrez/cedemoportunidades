@@ -66,11 +66,14 @@ export default function Login() {
             </p>
             <div className={cls(styles.caja, 'mt-4 p-2')}>
               <p className={cls(styles.title, styles.ingreso, '')}>{isLogIn ? 'Ingresar' : 'Registrarse'}</p>
+              
               {error && <div className={cls(MontserratSemiBold.className, styles.error, 'py-2')}>{ error }</div>}
+              
               {!isLogIn &&<div className={cls('')}>
                 <label htmlFor="name" className="form-label">Nombre Completo</label>
                 <input type="text" id="name" onChange={(e) => setNombre(e.target.value)} className={cls(styles.input, styles.text, "form-control")} value={nombre} />
-              </div>}
+              </div>
+              }
               <div className={cls('')}>
                 <label htmlFor="email" className="form-label">Email</label>
                 <input type="email" id="email" onChange={(e) => setEmail(e.target.value)} className={cls(styles.input, styles.text, "form-control")} value={email} />

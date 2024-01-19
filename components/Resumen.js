@@ -87,7 +87,7 @@ export default function Resumen({ action }) {
               {list.map((v, k) => {
 
                 return (
-                  <div className={cls(styles.card, "card border-primary mb-3")} >
+                  <div key={k} className={cls(styles.card, "card border-primary mb-3")} >
                     <div className="card-header">{ v.dolencia }</div>
                     <div className="card-body text-primary">
                       <p className="card-text">{ v.descripcion }</p>

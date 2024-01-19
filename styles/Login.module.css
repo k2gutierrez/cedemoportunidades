@@ -1,5 +1,5 @@
 .cont {
-    height: 100vh;
+    height: 100%;
     width: 100vw;
     align-items: center;
     text-align: center;
@@ -55,15 +55,100 @@
     font-weight: 100;
 }
 
+.input {
+
+}
 
 /* LG Screen */
 @media (min-width: 1121px) {   
+    .main {
+        width: 50vw;
+    }
     
+    .login {
+        font-size: 2vw;
+    }
+    
+    .logo {
+        width: 10vw;
+        height: auto;
+    }
+    
+    .title {
+        font-size: 2vw;
+    }
+    
+    .subtitle {
+        font-size: 1.5vw;
+    }
+    
+    .ingreso {
+        font-weight: 700;
+    }
+    
+    .text {
+        font-size: 1.5vw;
+    }
+    
+    .caja {
+        
+        width: 60%;
+        border-radius: 3vw;
+    }
+    
+    .error {
+        font-weight: 100;
+    }
+
+    .input {
+        font-size: 1vw;
+    }
 
 }
 
 /* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
     
+    .main {
+        width: 70vw;
+    }
     
+    .login {
+        font-size: 2.5vw;
+    }
+    
+    .logo {
+        width: 20vw;
+        height: auto;
+    }
+    
+    .title {
+        font-size: 2.5vw;
+    }
+    
+    .subtitle {
+        font-size: 1.8vw;
+    }
+    
+    .ingreso {
+        font-weight: 700;
+    }
+    
+    .text {
+        font-size: 1.5vw;
+    }
+    
+    .caja {
+        
+        width: 60%;
+        border-radius: 3vw;
+    }
+    
+    .error {
+        font-weight: 100;
+    }
+
+    .input {
+        font-size: 1.2vw;
+    }
 }

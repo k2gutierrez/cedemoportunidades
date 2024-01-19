@@ -71,13 +71,14 @@ export default function Ejercicio1({ action, action2 }) {
 
   return (
     <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
-        <div className='row'>
-          <div>
-            <p className={cls('text-start')}>Identifica las oportunidades y los problemas de crecimiento que 
+      <div className='row align-items-center justify-content-center text-center'>
+      <div className={cls(styles.main, 'align-items-center justify-content-center text-center')}>
+          <div className=''>
+            <p className={cls(styles.title, 'text-start')}>Identifica las oportunidades y los problemas de crecimiento que 
               prevalecen en tu empresa y anótalos.
             </p>
             <div className="mb-3">
-              <label htmlFor="exampleFormControlInput1" className="form-label">Agregar oportunidad o problema de crecimienot:</label>
+              <label htmlFor="exampleFormControlInput1" className={cls(styles.subtitle, "form-label")}>Agregar oportunidad o problema de crecimieno:</label>
               <input type="text" onChange={(e) => setAnswer(e.target.value)} value={answer} className={cls(styles.inputs, "form-control")} id="exampleFormControlInput1" placeholder="Oportunidad o Problema de Crecimiento" />
             </div>
             <div>
@@ -150,6 +151,8 @@ export default function Ejercicio1({ action, action2 }) {
 
           </div>
         </div>
+      </div>
+        
         <div className={cls('my-5 gap-3 justify-content-center d-flex px-4')}>
             <button type="button" onClick={action} className="btn btn-info">Regresar</button>
             <button type="button" onClick={action2} className="btn btn-info">Continuar</button>

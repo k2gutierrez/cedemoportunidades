@@ -9,7 +9,7 @@
 }
 
 .main {
-    width: 80vw;
+    width: 90%;
 }
 
 .title {
@@ -36,12 +36,16 @@
 
 /* LG Screen */
 @media (min-width: 1121px) {   
-    
+    .main {
+        width: 60%;
+    }
 
 }
 
 /* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
-    
+    .main {
+        width: 70%;
+    }
     
 }

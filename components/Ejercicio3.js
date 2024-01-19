@@ -64,7 +64,8 @@ export default function Ejercicio3({ action, action2 }) {
 
   return (
     <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
-        <div className='row'>
+        <div className='row justify-content-center'>
+        <div className={cls(styles.main, 'row')}>
           <div>
             <p className={cls('text-start')}>
               Analiza cada opción por separado sin relacionarlas con las demás. Elige si la opción 
@@ -127,6 +128,7 @@ export default function Ejercicio3({ action, action2 }) {
             })}
 
           </div>
+        </div>
         </div>
         <div className={cls('my-2 d-flex justify-content-center gap-5')}>
 

@@ -8,7 +8,7 @@ import logo from '../public/assets/cdD.png'
 import cls from 'classnames'
 import { useAuth } from '../context/authContext'
 
-export default function Navbars({ opcion1, user }) {
+export default function Navbars({ opcion1, user, opcion2 }) {
 
     const { logout, currentUser } = useAuth()
 
@@ -35,19 +35,25 @@ export default function Navbars({ opcion1, user }) {
                 <Offcanvas.Title><Image src={logo} className={cls('img-fluid')} alt='Consultoría de Dueños' width={50} height={50} /></Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-                <Button variant="transparent" onClick={logout}>
-                    Log Out
-                </Button>
-                {user == 'admin' ? (
-                    <Button variant="transparent" onClick={opcion1}>
+                <div>
+                    <Button variant="transparent" onClick={logout}>
+                        Log Out
+                    </Button>
+                </div>
+                <div>
+                    {user == 'admin' ? (
+                        <Button className='text-start' variant="transparent" onClick={opcion2}>
+                            Admin. Dashboard
+                        </Button>
+                    ) :
+                        (<div></div>)
+                    }
+                </div>
+                <div>
+                    <Button className='text-start' variant="transparent" onClick={opcion1}>
                         Problemas y Oportunidades de Crecimiento
                     </Button>
-                ) :
-                    (<div></div>)
-                }
-                <Button variant="transparent" onClick={opcion1}>
-                    Problemas y Oportunidades de Crecimiento
-                </Button>
+                </div>
             </Offcanvas.Body>
         </Offcanvas>
     </>

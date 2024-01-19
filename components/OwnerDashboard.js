@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../context/authContext'
-import styles from '../styles/Dashboard.module.css'
+import styles from '../styles/OwnerDashboard.module.css'
 import cls from 'classnames'
 import localFont from 'next/font/local'
 import { db } from '../firebase/firebase'
@@ -75,9 +75,15 @@ export default function OwnerDashboard() {
     setNP(listNP)
     }
 
+    const reload = async () => {
+        await getListCausas()
+        await getListEfectos()
+    }
+
     useEffect(() => {
 
         getList()
+
         if (idUser != '') {
             getListCausas()
             getListEfectos()
@@ -87,11 +93,12 @@ export default function OwnerDashboard() {
 
     return (
         <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
-            <div className={cls('row justify-content-center align-items-center gap-3')}>
+            <div className='row justify-content-center align-items-center'>
+            <div className={cls(styles.box, 'row justify-content-center align-items-center')}>
                 <div className={cls(styles.main, styles.text, '')}>
                     <p className={cls(styles.title)}>Oportunidades y Problemas de Crecimiento</p>
                 </div>
-                <div className={cls(styles.subtitle)}>
+                <div className={cls(styles.subtitle, styles.select)}>
                     <select className="form-select" onChange={(e) => setId(e.target.value)} aria-label="Default select example">
                         <option selected value={''} >Selecciona al Usuario</option>
                         {list.map((v, k) => {
@@ -103,13 +110,20 @@ export default function OwnerDashboard() {
 
                     </select>
                 </div>
+                {idUser == '' ? (<></>) :
+                    (
+                        <div className='text-center'>
+                            <button type="button" onClick={reload} className="btn btn-secondary">Recargar</button>
+                        </div>
+                    )
+                }
                 {causas.length == 0 ? (<></>) :
                 (
                     <div>
                         <p>Causas de Causas</p>
                         {causas.map((v, k) => {
                             return(
-                                <div className={cls(styles.card, "card border-primary mb-3")} >
+                                <div key={k} className={cls(styles.card, "card border-primary mb-3 text-start")} >
                                     <div className="card-header">{ v.dolencia }</div>
                                     <div className="card-body text-primary">
                                     <p className="card-text">{ v.descripcion }</p>
@@ -130,7 +144,7 @@ export default function OwnerDashboard() {
 
                         return (
                             
-                            <li key={k} className="list-group-item">{ v.dolencia }</li>
+                            <li key={k} className="list-group-item text-start">{ v.dolencia }</li>
 
                         )
                         })}
@@ -147,7 +161,7 @@ export default function OwnerDashboard() {
 
                         return (
                             
-                            <li key={k} className="list-group-item">{ v.dolencia }</li>
+                            <li key={k} className="list-group-item text-start">{ v.dolencia }</li>
 
                         )
                         })}
@@ -156,6 +170,7 @@ export default function OwnerDashboard() {
                 )
                 }
                 
+            </div>
             </div>
         </div>
     )

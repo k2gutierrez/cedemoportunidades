@@ -27,8 +27,9 @@ export default function Dashboard({ action }) {
 
     return (
         <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
-            <div className={cls('row justify-content-center align-items-center gap-3')}>
-                <div className={cls(styles.main, styles.text, '')}>
+            <div className='row justify-content-center align-items-center'>
+            <div className={cls(styles.main, 'row justify-content-center align-items-center gap-3')}>
+                <div className={cls(styles.text, '')}>
                     <p className={cls(styles.title)}>Oportunidades y Problemas de Crecimiento</p>
                 </div>
                 <div className={cls(styles.subtitle)}>
@@ -43,6 +44,7 @@ export default function Dashboard({ action }) {
                 <div className={cls('my-3')}>
                     <button type="button" onClick={action} className="btn btn-info">Comenzar</button>
                 </div>
+            </div>
             </div>
         </div>
     )

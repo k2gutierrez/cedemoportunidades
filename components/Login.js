@@ -53,7 +53,7 @@ export default function Login() {
   }
 
   return (
-    <div className={cls(MontserratLight.className, styles.cont, 'p-2')}>
+    <div className={cls(MontserratLight.className, styles.cont, 'pb-5')}>
         <div className='row justify-content-center'>
           
           <div className={cls(styles.main, styles.text, '')}>
@@ -64,29 +64,31 @@ export default function Login() {
             <p className={cls(MontserratSemiBold.className, styles.subtitle)}>
               Oportunidades y Problemas de Crecimiento
             </p>
-            <div className={cls(styles.caja, 'mt-4 p-2')}>
-              <p className={cls(styles.title, styles.ingreso, '')}>{isLogIn ? 'Ingresar' : 'Registrarse'}</p>
-              
-              {error && <div className={cls(MontserratSemiBold.className, styles.error, 'py-2')}>{ error }</div>}
-              
-              {!isLogIn &&<div className={cls('')}>
-                <label htmlFor="name" className="form-label">Nombre Completo</label>
-                <input type="text" id="name" onChange={(e) => setNombre(e.target.value)} className={cls(styles.input, styles.text, "form-control")} value={nombre} />
-              </div>
-              }
-              <div className={cls('')}>
-                <label htmlFor="email" className="form-label">Email</label>
-                <input type="email" id="email" onChange={(e) => setEmail(e.target.value)} className={cls(styles.input, styles.text, "form-control")} value={email} />
-              </div>
-              <div className={cls('')}>
-                <label htmlFor="inputPassword5" className="form-label">Password</label>
-                <input type="password" id="inputPassword5" onChange={(e) => setPassword(e.target.value)} className={cls(styles.input, styles.text, "form-control")} value={password} aria-describedby="passwordHelpBlock" />
+            <div className='row  justify-content-center align-items-center'>
+              <div className={cls(styles.caja, 'mt-4 p-2')}>
+                <p className={cls(styles.title, styles.ingreso, '')}>{isLogIn ? 'Ingresar' : 'Registrarse'}</p>
                 
+                {error && <div className={cls(MontserratSemiBold.className, styles.error, 'py-2')}>{ error }</div>}
+                
+                {!isLogIn &&<div className={cls('')}>
+                  <label htmlFor="name" className="form-label">Nombre Completo</label>
+                  <input type="text" id="name" onChange={(e) => setNombre(e.target.value)} className={cls(styles.input, styles.text, "form-control")} value={nombre} />
+                </div>
+                }
+                <div className={cls('')}>
+                  <label htmlFor="email" className="form-label">Email</label>
+                  <input type="email" id="email" onChange={(e) => setEmail(e.target.value)} className={cls(styles.input, styles.text, "form-control")} value={email} />
+                </div>
+                <div className={cls('')}>
+                  <label htmlFor="inputPassword5" className="form-label">Password</label>
+                  <input type="password" id="inputPassword5" onChange={(e) => setPassword(e.target.value)} className={cls(styles.input, styles.text, "form-control")} value={password} aria-describedby="passwordHelpBlock" />
+                  
+                </div>
+                <div className='mt-3 pb-2'>
+                  <button type="button" onClick={submitHandler} className="btn btn-primary">Submit</button>
+                </div>
+                <p className={cls(styles.ingreso, styles.login, '')} onClick={() => setIsLogIn(!isLogIn)}>{ isLogIn ? 'Register' : 'Ingresar' }</p>
               </div>
-              <div className='mt-3 pb-2'>
-                <button type="button" onClick={submitHandler} className="btn btn-primary">Submit</button>
-              </div>
-              <p className={cls(styles.ingreso, styles.login, '')} onClick={() => setIsLogIn(!isLogIn)}>{ isLogIn ? 'Register' : 'Ingresar' }</p>
             </div>
             
           </div>

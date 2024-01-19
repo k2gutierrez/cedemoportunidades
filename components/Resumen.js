@@ -5,9 +5,6 @@ import localFont from 'next/font/local'
 import { db } from '../firebase/firebase'
 import { useAuth } from '../context/authContext'
 import { ref, child, get, set, update } from "firebase/database";
-import _ from 'lodash'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 
 
 const MichromaReg = localFont({ 

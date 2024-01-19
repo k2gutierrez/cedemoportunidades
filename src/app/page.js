@@ -13,7 +13,8 @@ import Ejercicio4 from '../../components/Ejercicio4'
 import Ejercicio5 from '../../components/Ejercicio5'
 import Ejercicio6 from '../../components/Ejercicio6'
 import Resumen from '../../components/Resumen'
-import { db } from '../firebase/firebase'
+import OwnerDashboard from '../../components/OwnerDashboard'
+import { db } from '../../firebase/firebase'
 import { ref, child, get, set, update } from "firebase/database";
 
 export default function Home() {
@@ -23,11 +24,10 @@ export default function Home() {
   const { currentUser } = useAuth()
 
   async function getList () {
-    let newArray = []
     const dbRef = ref(db)
     const getDolenciasP = await get(child(dbRef, currentUser.uid))
     if (getDolenciasP.exists()) {
-      setData(getDolenciasP)
+      setData(getDolenciasP.val())
     }
   }
 
@@ -35,17 +35,11 @@ export default function Home() {
 
     getList()
 
-    if (data.NIVEL == 'user' || data.NIVEL == undefined || data.NIVEL == null){
-      return
-    } else if (data.NIVEL == 'admin') {
-      setMenu('owner')
-    }
-
-  }, [data])
+  }, [])
 
   return (
     <main>
-      {currentUser &&<Navbars opcion1={() => setMenu(0)} user={data.NIVEL} />}
+      {currentUser &&<Navbars opcion1={() => setMenu(0)} user={data.NIVEL} opcion2={() => setMenu('owner')} />}
       {!currentUser &&<Login />}
       {currentUser && menu == 'owner' &&<OwnerDashboard action={() => setMenu(1)} />}
       {currentUser && menu == 0 &&<Dashboard action={() => setMenu(1)} />}

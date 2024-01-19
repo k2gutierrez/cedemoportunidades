@@ -71,7 +71,8 @@ export default function Resumen({ action }) {
 
   return (
     <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
-        <div className='row'>
+        <div className='row justify-content-center'>
+        <div className={cls(styles.main, 'row')}>
           <div>
             <p className={cls('text-center')}>
               Oportunidades y Problemas de Crecimiento
@@ -126,6 +127,7 @@ export default function Resumen({ action }) {
 
           </div>
           
+        </div>
         </div>
         
         <div className={cls('my-3 d-flex d-flex-column justify-content-center gap-3 px-2')}>

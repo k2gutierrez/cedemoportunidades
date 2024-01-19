@@ -1,95 +1,36 @@
+'use client'
 import Image from 'next/image'
 import styles from './page.module.css'
+import Login from '../../components/Login'
+import { useAuth } from '../../context/authContext'
+import { useState } from 'react'
+import Navbars from '../../components/Navbar'
+import Dashboard from '../../components/Dashboard'
+import Ejercicio1 from '../../components/Ejercicio1'
+import Ejercicio2 from '../../components/Ejercicio2'
+import Ejercicio3 from '../../components/Ejercicio3'
+import Ejercicio4 from '../../components/Ejercicio4'
+import Ejercicio5 from '../../components/Ejercicio5'
+import Ejercicio6 from '../../components/Ejercicio6'
+import Resumen from '../../components/Resumen'
 
 export default function Home() {
+
+  const [menu, setMenu] = useState(0)
+  const { currentUser } = useAuth()
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+    <main>
+      {currentUser &&<Navbars />}
+      {!currentUser &&<Login />}
+      {currentUser && menu == 0 &&<Dashboard action={() => setMenu(1)} />}
+      {currentUser && menu == 1 && <Ejercicio1 action={() => setMenu(0)} action2={() => setMenu(2)}/>}
+      {currentUser && menu == 2 && <Ejercicio2 action={() => setMenu(1)} action2={() => setMenu(3)}/>}
+      {currentUser && menu == 3 && <Ejercicio3 action={() => setMenu(2)} action2={() => setMenu(4)}/>}
+      {currentUser && menu == 4 && <Ejercicio4 action={() => setMenu(3)} action2={() => setMenu(5)}/>}
+      {currentUser && menu == 5 && <Ejercicio5 action={() => setMenu(4)} action2={() => setMenu(6)}/>}
+      {currentUser && menu == 6 && <Ejercicio6 action={() => setMenu(5)} action2={() => setMenu(7)}/>}
+      {currentUser && menu == 7 && <Resumen action={() => setMenu(6)} />}
     </main>
   )
 }

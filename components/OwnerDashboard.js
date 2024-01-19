@@ -31,6 +31,7 @@ export default function OwnerDashboard() {
     const [causas, setCausas] = useState([])
     const [efectos, setEfectos] = useState([])
     const [np, setNP] = useState([])
+    const [causasS, setCausasS] = useState([])
 
     async function getList () {
         let newArray = []
@@ -70,9 +71,11 @@ export default function OwnerDashboard() {
 
     let listEfectos = newArray.filter((word) => word.opcion == "E")
     let listNP = newArray.filter((word) => word.opcion == "N")
+    let listCausas = newArray.filter((word) => word.opcion == "C")
 
     setEfectos(listEfectos)
     setNP(listNP)
+    setCausasS(listCausas)
     }
 
     const reload = async () => {
@@ -98,7 +101,7 @@ export default function OwnerDashboard() {
                 <div className={cls(styles.main, styles.text, '')}>
                     <p className={cls(styles.title)}>Oportunidades y Problemas de Crecimiento</p>
                 </div>
-                <div className={cls(styles.subtitle, styles.select)}>
+                <div className={cls(styles.subtitle, styles.select, 'mb-3')}>
                     <select className="form-select" onChange={(e) => setId(e.target.value)} aria-label="Default select example">
                         <option selected value={''} >Selecciona al Usuario</option>
                         {list.map((v, k) => {
@@ -112,7 +115,7 @@ export default function OwnerDashboard() {
                 </div>
                 {idUser == '' ? (<></>) :
                     (
-                        <div className='text-center'>
+                        <div className='text-center my-3'>
                             <button type="button" onClick={reload} className="btn btn-secondary">Recargar</button>
                         </div>
                     )
@@ -135,6 +138,25 @@ export default function OwnerDashboard() {
 
                 )
                 }
+
+                {causasS.length == 0 ? (<></>) :
+                (
+                    <div>
+                        <p>Causas</p>
+                        <ol className="list-group list-group-numbered">
+                        {causasS.map((v, k) => {
+
+                        return (
+                            
+                            <li key={k} className="list-group-item text-start">{ v.dolencia }</li>
+
+                        )
+                        })}
+                        </ol>
+                    </div>
+                )
+                }
+
                 {efectos.length == 0 ? (<></>) :
                 (
                     <div>

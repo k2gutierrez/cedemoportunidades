@@ -29,43 +29,31 @@ export default function Ejercicio4({ action, action2 }) {
   const { currentUser } = useAuth()
 
   let [list, setList] = useState([])
-  let [listCausas, setListCausas] = useState([])
-  let [listEfectos, setListEfectos] = useState([])
-  let [listNoProblema, setListNoProblema] = useState([])
-  let arr = []
 
   async function getList () {
     let newArray = []
     const dbRef = ref(db)
-    const getDolenciasP = await get(child(dbRef, currentUser.uid + '/dolencias/Categorizado'))
+    const getDolenciasP = await get(child(dbRef, currentUser.uid + '/dolencias/Seleccion'))
     if (getDolenciasP.exists()) {
       for (let x in getDolenciasP.val()) {
         newArray.push(getDolenciasP.val()[x])
       }
     }
+    const getDolenciasS = await get(child(dbRef, currentUser.uid + '/dolencias/listaP'))
+    if (getDolenciasS.exists()) {
+      for (let x in getDolenciasS.val()) {
+        newArray.push(getDolenciasS.val()[x])
+      }
+    }
     setList(newArray)
   }
 
-  async function add () {
-    const adding = await update(ref(db, currentUser.uid + '/dolencias/'), {
-      Categorizado: arr
-    })
-    window.alert("Registros categorizados")
-  }
-
   useEffect(() => {
-    if (list.length < 1) {
-      getList()
-    }
-    let list1 = list.filter((word) => word.opcion == "C")
-    let list2 = list.filter((word) => word.opcion == "E")
-    let list3 = list.filter((word) => word.opcion == "N")
     
-    setListCausas(list1)
-    setListEfectos(list2)
-    setListNoProblema(list3)
+    getList()
 
-  }, [list])
+
+  }, [])
 
   return (
     <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
@@ -79,7 +67,7 @@ export default function Ejercicio4({ action, action2 }) {
           <div className={cls('row my-3 gap-3 px-4 text-start')}>
             <p className={cls('text-center')}>Causas</p>
             <ul className="list-group-numbered">
-              { listCausas.map((v, k) => {
+              { list.filter((word) => word.categoria == "C").map((v, k) => {
                 return (
                   
                   <li key={k} className="list-group-item"> {v.dolencia} </li>
@@ -91,7 +79,7 @@ export default function Ejercicio4({ action, action2 }) {
           <div className={cls('row my-3 gap-3 px-4 text-start')}>
             <p className={cls('text-center')}>Efectos</p>
             <ul className="list-group-numbered">
-              { listEfectos.map((v, k) => {
+              { list.filter((word) => word.categoria == "E").map((v, k) => {
                 return (
                   
                   <li key={k} className="list-group-item"> {v.dolencia} </li>
@@ -103,7 +91,7 @@ export default function Ejercicio4({ action, action2 }) {
           <div className={cls('row my-3 gap-3 px-4 text-start')}>
             <p className={cls('text-center')}>No Problemas</p>
             <ul className="list-group-numbered">
-              { listNoProblema.map((v, k) => {
+              { list.filter((word) => word.categoria == "N").map((v, k) => {
                 return (
                   
                   <a key={k} className="list-group-item"> {v.dolencia}  </a>

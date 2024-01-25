@@ -25,12 +25,13 @@ const MontserratSemiBold = localFont({
   src: '../public/fonts/Montserrat-SemiBold.ttf'
 })
 
+
 export default function Ejercicio1({ action, action2 }) {
 
   const { currentUser } = useAuth()
 
   const [answer, setAnswer] = useState('')
-  const [ListP, setListP] = useState([])
+  let [ListP, setListP] = useState([])
   const [change, setChange] = useState(false)
 
   async function getListP () {
@@ -44,7 +45,13 @@ export default function Ejercicio1({ action, action2 }) {
 
   async function addNew () {
     let arr = ListP
-    arr.push(answer)
+    arr.push({
+      dolencia: answer,
+      descripcion: "", 
+      categoria: "", 
+      causaDeCausas: false,
+      personal: true
+    })
     const adding = await update(ref(db, currentUser.uid + '/dolencias/'), {
       listaP: arr
     })
@@ -60,14 +67,15 @@ export default function Ejercicio1({ action, action2 }) {
       listaP: value
     })
     setChange(!change)
+    setListP(value)
 
   }
 
   useEffect(() => {
-
+    
     getListP()
 
-  }, [change])
+  }, [change]) 
 
   return (
     <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
@@ -93,15 +101,15 @@ export default function Ejercicio1({ action, action2 }) {
 
               const newEdit = () => {
 
-                  document.getElementById(k+'inp').disabled = false
-                  edit = true
+                document.getElementById(k+'inp').disabled = false
+                edit = true
                 
               }
 
               const AddEdit = async () => {
                 const inpu = document.getElementById(k+'inp')
                 const val = inpu.value
-                let cambioDeValor = ListP[k] = val
+                let cambioDeValor = ListP[k].dolencia = val
                 
                 await add(ListP)
                 inpu.disabled = true
@@ -111,20 +119,20 @@ export default function Ejercicio1({ action, action2 }) {
               const DeleteEdit = async () => {
                 let arr1 = ListP
                 let removeOp = await _.remove(arr1, (n) => {
-                  return n == v
+                  return n.dolencia == v.dolencia
                 })
                 
                 await add(arr1)
-                setListP(arr1)
+                await getListP()
               }
 
               return (
 
-                <div key={k} className={cls(styles.list, "d-flex flex-row align-items-center justify-content-center text-center")}>
+                <div key={k} className={cls(styles.list, "d-flex flex-row align-items-center justify-content-center text-center gap-1")}>
       
                   <div className="p-2 d-flex w-100">
 
-                      <textarea type="text" className={cls(styles.inputs, "form-control")} disabled={true} id={k+'inp'} defaultValue={v} value={newVal}  />
+                      <textarea type="text" className={cls(styles.inputs, "form-control")} rows='3' disabled={true} id={k+'inp'} defaultValue={v.dolencia} value={newVal}  />
 
                   </div>
                   

@@ -28,39 +28,49 @@ export default function Ejercicio5({ action, action2 }) {
 
   const { currentUser } = useAuth()
 
-  const [answer, setAnswer] = useState([])
-  let [list, setList] = useState([])
-  let [listCausas, setListCausas] = useState([])
-  let arr = []
+  let [listSeleccion, setListSeleccion] = useState([])
+  let [listP, setListP] = useState([])
 
   async function getList () {
-    let newArray = []
+    let newArray1 = []
+    let newArray2 = []
     const dbRef = ref(db)
-    const getDolenciasP = await get(child(dbRef, currentUser.uid + '/dolencias/Categorizado'))
-    if (getDolenciasP.exists()) {
-      for (let x in getDolenciasP.val()) {
-        newArray.push(getDolenciasP.val()[x])
+    const getDolenciasS = await get(child(dbRef, currentUser.uid + '/dolencias/Seleccion'))
+    if (getDolenciasS.exists()) {
+      for (let x in getDolenciasS.val()) {
+        newArray1.push(getDolenciasS.val()[x])
       }
     }
-    setList(newArray)
+    setListSeleccion(newArray1)
+
+    const getDolenciasP = await get(child(dbRef, currentUser.uid + '/dolencias/listaP'))
+    if (getDolenciasP.exists()) {
+      for (let x in getDolenciasP.val()) {
+        newArray2.push(getDolenciasP.val()[x])
+      }
+    }
+    setListP(newArray2)
   }
 
-  async function add () {
-    const adding = await update(ref(db, currentUser.uid + '/dolencias/'), {
-      CausasDeCausas: answer
+  async function addSele (key, val) {
+    const adding = await update(ref(db, currentUser.uid + `/dolencias/Seleccion/${key}/`), {
+      causaDeCausas: val
     })
-    window.alert("Qudaron registradas las Causas de Causas")
+    
+  }
+
+  async function addP (key, val) {
+    const adding = await update(ref(db, currentUser.uid + `/dolencias/listaP/${key}/`), {
+      causaDeCausas: val
+    })
+    
   }
 
   useEffect(() => {
-    if (list.length < 1) {
-      getList()
-    }
-    let list1 = list.filter((word) => word.opcion == "C")
-    
-    setListCausas(list1)
 
-  }, [list])
+    getList()
+
+  }, [])
 
   return (
     <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
@@ -80,44 +90,61 @@ export default function Ejercicio5({ action, action2 }) {
           <div className={cls('row my-3 gap-3 px-4 text-start')}>
             <p className={cls('text-center')}>Causas</p>
 
-              {listCausas.map((v, k) => {
-                let check = false
+              {listP.map((v, k) => {
+                let check = v.causaDeCausas
+            
                 async function toggleAction () {
                   check = !check
-                  if (check == false) {
-                    let removeOp = _.remove(answer, (n) => {
-                      return n == v.dolencia
-                    })
-
-                  } else if (check == true) {
-                    answer.push({
-                      dolencia: v.dolencia,
-                      descripcion: ''
-                    })
-
-                  }
-                  
+                  v.causaDeCausas = check
+                   
+                  await addP(k, check)
                 }
 
                 return (
-                  <div className="form-check" key={k}>
-                    <input className="form-check-input" onChange={toggleAction} type="checkbox" value={v.dolencia} id="flexCheckDefault" />
-                    <label className="form-check-label" htmlFor="flexCheckDefault">
-                      { v.dolencia }
-                    </label>
-                  </div>
+                  <>
+                    { v.categoria == "C" && (
+                      <div className="form-check" key={k}>
+                        <input className="form-check-input" onChange={toggleAction} defaultChecked={check} type="checkbox" value={v.dolencia} id="flexCheckDefault" />
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
+                          { v.dolencia }
+                        </label>
+                      </div>
+                    )
 
+                    }
+                  </>
+                )
+              })}
+
+              {listSeleccion.map((v, k) => {
+                let check = v.causaDeCausas
+            
+                async function toggleAction () {
+                  check = !check
+                  v.causaDeCausas = check
+                   
+                  await addSele(k, check)
+                }
+
+                return (
+                  <>
+                    { v.categoria == "C" && (
+                      <div className="form-check" key={k}>
+                        <input className="form-check-input" onChange={toggleAction} defaultChecked={check} type="checkbox" value={v.dolencia} id="flexCheckDefault" />
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
+                          { v.dolencia }
+                        </label>
+                      </div>
+                    )
+
+                    }
+                  </>
                 )
               })}
 
           </div>
           
         </div>
-        </div>
-        <div className={cls('my-3 d-flex d-flex-column justify-content-center gap-5')}>
-
-            <button type="button" onClick={add} className="btn btn-info">Guardar</button>
-
         </div>
         <div className={cls('my-3 d-flex d-flex-column justify-content-center gap-3 px-2')}>
             <button type="button" onClick={action} className="btn btn-info">Regresar</button>

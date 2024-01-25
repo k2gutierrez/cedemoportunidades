@@ -26,71 +26,59 @@ const MichromaReg = localFont({
 export default function OwnerDashboard() {
 
     const { logout, currentUser } = useAuth()
-    const [list, setList] = useState([])
+    const [listS, setListS] = useState([])
+    const [listP, setListP] = useState([])
     const [idUser, setId] = useState('')
-    const [causas, setCausas] = useState([])
-    const [efectos, setEfectos] = useState([])
-    const [np, setNP] = useState([])
-    const [causasS, setCausasS] = useState([])
+    const [users, setUsers] = useState([])
 
     async function getList () {
+        let arr1 = []
+        let arr2 = []
+        const dbRef = ref(db)
+        const getDolenciasP = await get(child(dbRef, idUser + '/dolencias/listaP'))
+        if (getDolenciasP.exists()) {
+            for (let x in getDolenciasP.val()){
+                arr1.push(getDolenciasP.val()[x])
+            }
+            setListP(arr1)
+        }
+        
+    
+        const getDolenciasS = await get(child(dbRef, idUser + '/dolencias/Seleccion'))
+        if (getDolenciasS.exists()) {
+            for (let x in getDolenciasS.val()){
+                arr2.push(getDolenciasS.val()[x])
+            }
+            setListS(arr2)
+        }
+        
+    }
+
+    async function getUsers () {
         let newArray = []
         const dbRef = ref(db)
-        const getUsers = await get(child(dbRef, '/'))
-        if (getUsers.exists()) {
-            for (let x in getUsers.val()) {
-                newArray.push(getUsers.val()[x])
+        const getUser = await get(child(dbRef, '/'))
+        if (getUser.exists()) {
+            for (let x in getUser.val()) {
+                newArray.push(getUser.val()[x])
             }
+
         }
         let users = newArray.filter((word) => word.NIVEL == "user")
-        await setList(users)
-
-    }
-
-    async function getListCausas () {
-        let newArray = []
-        const dbRef = ref(db)
-        const getDolenciasP = await get(child(dbRef, idUser + '/dolencias/CausasDeCausas'))
-        if (getDolenciasP.exists()) {
-          for (let x in getDolenciasP.val()) {
-            newArray.push(getDolenciasP.val()[x])
-          }
-        }
-        setCausas(newArray)
-      }
-    
-    async function getListEfectos () {
-    let newArray = []
-    const dbRef = ref(db)
-    const getDolenciasP = await get(child(dbRef, idUser + '/dolencias/Categorizado'))
-    if (getDolenciasP.exists()) {
-        for (let x in getDolenciasP.val()) {
-        newArray.push(getDolenciasP.val()[x])
-        }
-    }
-
-    let listEfectos = newArray.filter((word) => word.opcion == "E")
-    let listNP = newArray.filter((word) => word.opcion == "N")
-    let listCausas = newArray.filter((word) => word.opcion == "C")
-
-    setEfectos(listEfectos)
-    setNP(listNP)
-    setCausasS(listCausas)
+        setUsers(users)
     }
 
     const reload = async () => {
-        await getListCausas()
-        await getListEfectos()
+        getList()
+        getUsers()
     }
 
     useEffect(() => {
-
-        getList()
-
-        if (idUser != '') {
-            getListCausas()
-            getListEfectos()
+        if (idUser != ''){
+            getList()
         }
+        
+        getUsers()
 
     }, [idUser])
 
@@ -103,8 +91,8 @@ export default function OwnerDashboard() {
                 </div>
                 <div className={cls(styles.subtitle, styles.select, 'mb-3')}>
                     <select className="form-select" onChange={(e) => setId(e.target.value)} aria-label="Default select example">
-                        <option selected value={''} >Selecciona al Usuario</option>
-                        {list.map((v, k) => {
+                        <option value={''} >Selecciona al Usuario</option>
+                        {users.filter((word) => word.NIVEL == "user").map((v, k) => {
                             return (
                                 <option key={k} value={ v.ID }>{ v.NAME }</option>
                             )
@@ -113,84 +101,168 @@ export default function OwnerDashboard() {
 
                     </select>
                 </div>
-                {idUser == '' ? (<></>) :
+                {idUser != '' && 
                     (
                         <div className='text-center my-3'>
-                            <button type="button" onClick={reload} className="btn btn-secondary">Recargar</button>
+                            <button type="button" onClick={reload} className="btn btn-secondary">Recargar información</button>
                         </div>
                     )
                 }
-                {causas.length == 0 ? (<></>) :
-                (
-                    <div>
-                        <p>Causas de Causas</p>
-                        {causas.map((v, k) => {
-                            return(
-                                <div key={k} className={cls(styles.card, "card border-primary mb-3 text-start")} >
-                                    <div className="card-header">{ v.dolencia }</div>
-                                    <div className="card-body text-primary">
-                                    <p className="card-text">{ v.descripcion }</p>
-                                    </div>
+
+                <div>
+                    <p>Problemas y oportunidades personales:</p>
+                    <ol className="list-group list-group-numbered">
+                    {listP.map((v, k) => {
+
+                        return (
+                            
+                            <li key={k} className="list-group-item text-start">
+                                Dolencia: { v.dolencia }
+                            </li>
+
+                        )
+                    })}
+                    
+                    </ol>
+                </div>
+
+                <div>
+                    <p>Problemas y oportunidades seleccionados:</p>
+                    <ol className="list-group list-group-numbered">
+                    {listS.filter((word) => word.check == true).map((v, k) => {
+
+                        return (
+                            
+                            <li key={k} className="list-group-item text-start">
+                                Dolencia: { v.dolencia }
+                            </li>
+
+                        )
+                    })}
+                    
+                    </ol>
+                </div>
+                
+
+                <div>
+                    <p>Causas</p>
+                    <ol className="list-group list-group-numbered">
+                    {listP.filter((word) => word.categoria == "C").map((v, k) => {
+
+                        return (
+                            
+                            <li key={k} className="list-group-item text-start">
+                                <p>Dolencia: { v.dolencia }</p>
+                                <p>Dimensión: { v.dimension == undefined || v.dimension == null ? 'Causa personal' : v.dimension }</p>
+                                <p>Lastre: { v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre }</p>
+                            </li>
+
+                        )
+                    })}
+                    {listS.filter((word) => word.categoria == "C").map((v, k) => {
+
+                        return (
+                            
+                            <li key={k} className="list-group-item text-start">
+                                <p>Dolencia: { v.dolencia }</p>
+                                <p>Dimensión: { v.dimension == undefined || v.dimension == null ? 'Causa personal' : v.dimension }</p>
+                                <p>Lastre: { v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre }</p>
+                            </li>
+
+                        )
+                    })}
+                    </ol>
+                </div>
+
+                <div>
+                    <p>Efectos</p>
+                    <ol className="list-group list-group-numbered">
+                    {listP.filter((word) => word.categoria == "E").map((v, k) => {
+
+                        return (
+                            
+                            <li key={k} className="list-group-item text-start">
+                                <p>Dolencia: { v.dolencia }</p>
+                                <p>Dimensión: { v.dimension == undefined || v.dimension == null ? 'Efecto personal' : v.dimension }</p>
+                                <p>Lastre: { v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre }</p>
+                            </li>
+
+                        )
+                    })}
+                    {listS.filter((word) => word.categoria == "E").map((v, k) => {
+
+                        return (
+                            
+                            <li key={k} className="list-group-item text-start">
+                                <p>Dolencia: { v.dolencia }</p>
+                                <p>Dimensión: { v.dimension == undefined || v.dimension == null ? 'Efecto personal' : v.dimension }</p>
+                                <p>Lastre: { v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre }</p>
+                            </li>
+
+                        )
+                    })}
+                    </ol>
+                </div>
+
+                <div>
+                    <p>No Problemas</p>
+                    <ol className="list-group list-group-numbered">
+                    {listP.filter((word) => word.categoria == "N").map((v, k) => {
+
+                        return (
+                            
+                            <li key={k} className="list-group-item text-start">
+                                <p>Dolencia: { v.dolencia }</p>
+                                <p>Dimensión: { v.dimension == undefined || v.dimension == null ? 'NP personal' : v.dimension }</p>
+                                <p>Lastre: { v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre }</p>
+                            </li>
+
+                        )
+                    })}
+                    {listS.filter((word) => word.categoria == "N").map((v, k) => {
+
+                        return (
+                            
+                            <li key={k} className="list-group-item text-start">
+                                <p>Dolencia: { v.dolencia }</p>
+                                <p>Dimensión: { v.dimension == undefined || v.dimension == null ? 'NP personal' : v.dimension }</p>
+                                <p>Lastre: { v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre }</p>
+                            </li>
+
+                        )
+                    })}
+                    </ol>
+                </div>
+
+                <div>
+                    <p>Causas de Causas</p>
+                    {listP.filter((word) => word.causaDeCausas == true).map((v, k) => {
+                        return(
+                            <div key={k} className={cls(styles.card, "card border-primary mb-3 text-start")} >
+                                <div className="card-header">{ v.dolencia }</div>
+                                <div className="card-body text-primary">
+                                <p className="card-text">{ v.descripcion }</p>
+                                <p>Dimensión: { v.dimension == undefined || v.dimension == null ? 'Causa personal' : v.dimension }</p>
+                                <p>Lastre: { v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre }</p>
                                 </div>
-                            )
-                        })}
-                    </div>
-
-                )
-                }
-
-                {causasS.length == 0 ? (<></>) :
-                (
-                    <div>
-                        <p>Causas</p>
-                        <ol className="list-group list-group-numbered">
-                        {causasS.map((v, k) => {
-
-                        return (
-                            
-                            <li key={k} className="list-group-item text-start">{ v.dolencia }</li>
-
+                            </div>
                         )
-                        })}
-                        </ol>
-                    </div>
-                )
-                }
-
-                {efectos.length == 0 ? (<></>) :
-                (
-                    <div>
-                        <p>Efectos</p>
-                        <ol className="list-group list-group-numbered">
-                        {efectos.map((v, k) => {
-
-                        return (
-                            
-                            <li key={k} className="list-group-item text-start">{ v.dolencia }</li>
-
+                    })}
+                    {listS.filter((word) => word.causaDeCausas == true).map((v, k) => {
+                        return(
+                            <div key={k} className={cls(styles.card, "card border-primary mb-3 text-start")} >
+                                <div className="card-header">{ v.dolencia }</div>
+                                <div className="card-body text-primary">
+                                <p className="card-text">{ v.descripcion }</p>
+                                <p>Dimensión: { v.dimension == undefined || v.dimension == null ? 'Causa personal' : v.dimension }</p>
+                                <p>Lastre: { v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre }</p>
+                                </div>
+                            </div>
                         )
-                        })}
-                        </ol>
-                    </div>
-                )
-                }
-                {np.length == 0 ? (<></>) :
-                (
-                    <div>
-                        <p>No Problemas</p>
-                        <ol className="list-group list-group-numbered">
-                        {np.map((v, k) => {
+                    })}
+                </div>
 
-                        return (
-                            
-                            <li key={k} className="list-group-item text-start">{ v.dolencia }</li>
 
-                        )
-                        })}
-                        </ol>
-                    </div>
-                )
-                }
                 
             </div>
             </div>

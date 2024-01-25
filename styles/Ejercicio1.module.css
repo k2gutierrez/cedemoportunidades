@@ -4,8 +4,7 @@
     align-items: center;
     text-align: center;
     justify-content: center;
-    background: rgb(169,169,233);
-    background: linear-gradient(90deg, rgba(169,169,233,1) 14%, rgba(14,19,241,0.8085434857536764) 80%);
+    background: white;
 }
 
 .main {

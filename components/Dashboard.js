@@ -38,7 +38,7 @@ export default function Dashboard({ action }) {
                     </p>
                     <p className={cls(styles.text, 'text-start')}> 
                         A continuación aparecerán diferentes opciones a elegir...
-                        Cuando estés listo da click en el botón "Comenzar actividad"
+                        Cuando estés listo da click en el botón "Comenzar"
                     </p>
                 </div>
                 <div className={cls('my-3')}>

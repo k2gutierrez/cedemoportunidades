@@ -29,57 +29,45 @@ export default function Ejercicio2({ action, action2 }) {
 
   const { currentUser } = useAuth()
 
+  const [answer, setAnswer] = useState([])
+  const [sel, setSel] = useState([])
   const [ListP, setListP] = useState([])
-  const [newArr, setNewArr] = useState([])
 
-  {/*async function getList () {
+  async function getList () {
     const dbRef = ref(db)
     const getDolencias = await get(child(dbRef, 'dolencias'))
     if (getDolencias.exists()) {
 
       setListP(getDolencias.val())
     }
-  }*/}
+  }
 
   async function getSeleccion () {
-    let newArray = []
     const dbRef = ref(db)
     const getSel = await get(child(dbRef, currentUser.uid + '/dolencias/Seleccion/'))
     if (getSel.exists()) {
-      
-      setListP(getSel.val())
-      
-    } else {
 
-      const getDolencias = await get(child(dbRef, 'dolencias'))
-      if (getDolencias.exists()) {
-        for (let x in getDolencias.val()) {
-          newArray.push({...getDolencias.val()[x], check: false, descripcion: "", categoria: "", causaDeCausas: false, key: x})
-        }
-        setListP(newArray)
-      }
-
-      const adding = await update(ref(db, currentUser.uid + `/dolencias/`), {
-        Seleccion: newArray
-      })
+      setSel(getSel.val())
+      setAnswer(getSel.val())
     }
-    
   }
 
-  async function add (key, val) {
-    const adding = await update(ref(db, currentUser.uid + `/dolencias/Seleccion/${key}/`), {
-      check: val
+  async function add () {
+    
+    const adding = await update(ref(db, currentUser.uid + '/dolencias/'), {
+      Seleccion: answer
     })
+    
     
   }
 
   useEffect(() => {
 
+    getList()
     getSeleccion()
 
   }, [])
-
-
+  console.log(sel)
 
   return (
     <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
@@ -97,18 +85,36 @@ export default function Ejercicio2({ action, action2 }) {
         <div className={cls('row text-start my-3 gap-3 px-4')}>
 
           {ListP.slice(0, 26).map((v, k) => {
-            let check = v.check
-            
+            let check
+            if (sel.length == 0) {
+              check = false  
+            }
+            for (let i=0; i < sel.length; i++) {
+              
+              if (sel[i].dolencia == v.dolencia) {
+                check = true
+              } else {
+                check = false
+              }
+            }
             async function toggleAction () {
               check = !check
-              v.check = check
-               
-              await add(k, check)
+              if (check == false) {
+                let removeOp = _.remove(answer, (n) => {
+                  return n.dolencia == v.dolencia
+                })
+
+              } else if (check == true) {
+                answer.push({...v, check: true})
+
+              }
+             console.log(answer) 
+             //add()
             }
 
             return (
               <div className="form-check" key={k}>
-                <input className="form-check-input" defaultChecked={check} onChange={toggleAction} type="checkbox" value={v.dolencia} id="flexCheckDefault" />
+                <input className="form-check-input" onChange={toggleAction} type="checkbox" checked={check} value={v.dolencia} id="flexCheckDefault" />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                   { v.dolencia }
                 </label>
@@ -120,7 +126,9 @@ export default function Ejercicio2({ action, action2 }) {
         </div>
       </div>
       </div>
-      
+      <div className={cls('my-2 d-flex justify-content-center gap-5')}>
+          <button type="button" onClick={add} className="btn btn-info">Guardar</button>
+      </div>
       <div className={cls('my-3 d-flex justify-content-center gap-3 px-2')}>
           <button type="button" onClick={action} className="btn btn-info">Regresar</button>
 

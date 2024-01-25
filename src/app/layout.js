@@ -1,8 +1,8 @@
 'use client'
-import './globals.css'
 import "bootstrap/dist/css/bootstrap.min.css"
-import { AuthProvider } from '../../context/authContext'
 import ImportBootstrap from '../../components/ImportBootstrap'
+import './globals.css'
+import { AuthProvider } from '../../context/authContext'
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 

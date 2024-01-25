@@ -32,13 +32,15 @@ export default function Home() {
   }
 
   useEffect(() => {
+    if (currentUser){
+      getList()
+      
+    }
 
-    getList()
-
-  }, [])
+  }, [currentUser])
 
   return (
-    <main>
+    <main className={styles.main}>
       {currentUser &&<Navbars opcion1={() => setMenu(0)} user={data.NIVEL} opcion2={() => setMenu('owner')} />}
       {!currentUser &&<Login />}
       {currentUser && menu == 'owner' &&<OwnerDashboard action={() => setMenu(1)} />}
@@ -49,7 +51,7 @@ export default function Home() {
       {currentUser && menu == 4 && <Ejercicio4 action={() => setMenu(3)} action2={() => setMenu(5)}/>}
       {currentUser && menu == 5 && <Ejercicio5 action={() => setMenu(4)} action2={() => setMenu(6)}/>}
       {currentUser && menu == 6 && <Ejercicio6 action={() => setMenu(5)} action2={() => setMenu(7)}/>}
-      {currentUser && menu == 7 && <Resumen action={() => setMenu(6)} />}
+      {currentUser && menu == 7 && <Resumen action={() => setMenu(0)} action2={null} />}
     </main>
   )
 }

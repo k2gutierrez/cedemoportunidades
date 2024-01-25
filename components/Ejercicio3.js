@@ -28,32 +28,40 @@ export default function Ejercicio3({ action, action2 }) {
 
   const { currentUser } = useAuth()
 
-  let [list, setList] = useState([])
+  let [listSeleccion, setListSeleccion] = useState([])
+  let [listP, setListP] = useState([])
   let arr = []
 
   async function getList () {
-    let newArray = []
+    let newArray1 = []
+    let newArray2 = []
     const dbRef = ref(db)
     const getDolenciasP = await get(child(dbRef, currentUser.uid + '/dolencias/Seleccion'))
     if (getDolenciasP.exists()) {
       for (let x in getDolenciasP.val()) {
-        newArray.push(getDolenciasP.val()[x])
+        newArray1.push(getDolenciasP.val()[x])
       }
+      setListSeleccion(newArray1)
     }
     const getDolenciasS = await get(child(dbRef, currentUser.uid + '/dolencias/listaP'))
     if (getDolenciasS.exists()) {
       for (let y in getDolenciasS.val()) {
-        newArray.push(getDolenciasS.val()[y])
+        newArray2.push(getDolenciasS.val()[y])
       }
+      setListP(newArray2)
     }
-    setList(newArray)
   }
 
-  async function add () {
-    const adding = await update(ref(db, currentUser.uid + '/dolencias/'), {
-      Categorizado: arr
+  async function add1  (key, val) {
+    const adding = await update(ref(db, currentUser.uid + `/dolencias/listaP/${key}/`), {
+      categoria: val
     })
-    window.alert("Registros categorizados")
+  }
+
+  async function add2  (key, val) {
+    const adding = await update(ref(db, currentUser.uid + `/dolencias/Seleccion/${key}/`), {
+      categoria: val
+    })
   }
 
   useEffect(() => {
@@ -72,54 +80,31 @@ export default function Ejercicio3({ action, action2 }) {
               es una Causa (C), Efecto (E) o No Problema (N).
             </p>
           </div>
-          <div className={cls('row my-3 gap-3 px-4')}>
-
-            {list.map((v, k) => {
+          <div className={cls('row my-3 gap-5 px-4')}>
+            
+            {listP.map((v, k) => {
               
-              const getSelection = (e) => {
-                let state = true
-                let valor = e.target.value
+              const getSelection1 = async (e) => {
+                
+                let valor = await e.target.value
 
-                let a = {
-                  dolencia: v,
-                  opcion: valor
-                }
-
-                if (arr.length == 0) {
-                  arr.push(a)
-                }
-
-                for (let i = 0; i < arr.length; i++) {
-                  if (arr[i].dolencia == a.dolencia) {
-                    arr[i].opcion = valor
-                    state = true
-                    break
-                    
-                  } else {
-                    state = false
-                  }
-                }
-
-                if (state == false) {
-                  arr = [...arr, a]
-                  state = true
-                }
+                await add1(k, valor)
 
               }
 
               return (
                 <div className="" key={k}>
-                  <p>{ v }</p>
+                  <p>{ v.dolencia }</p>
                   <div className="form-check form-check-inline">
-                    <input className="form-check-input" onChange={getSelection} type="radio" name={k} id="inlineRadio1" value="C" />
+                    <input className="form-check-input" onChange={getSelection1} type="radio" defaultChecked={v.categoria != 'C' ? false : true} name={k} id="inlineRadio1" value="C" />
                     <label className="form-check-label" htmlFor="inlineRadio1">C</label>
                   </div>
                   <div className="form-check form-check-inline">
-                    <input className="form-check-input" onChange={getSelection} type="radio" name={k} id="inlineRadio2" value="E" />
+                    <input className="form-check-input" onChange={getSelection1} type="radio" defaultChecked={v.categoria != 'E' ? false : true} name={k} id="inlineRadio2" value="E" />
                     <label className="form-check-label" htmlFor="inlineRadio2">E</label>
                   </div>
                   <div className="form-check form-check-inline">
-                    <input className="form-check-input" onChange={getSelection} type="radio" name={k} id="inlineRadio3" value="N" />
+                    <input className="form-check-input" onChange={getSelection1} type="radio" defaultChecked={v.categoria != 'N' ? false : true} name={k} id="inlineRadio3" value="N" />
                     <label className="form-check-label" htmlFor="inlineRadio3">N</label>
                   </div>
                 </div>
@@ -127,14 +112,47 @@ export default function Ejercicio3({ action, action2 }) {
               )
             })}
 
+            {listSeleccion.map((v, k) => {
+              
+              const getSelection2 = async (e) => {
+                
+                let valor = await e.target.value
+
+                await add2(k, valor)
+
+              }
+
+              return (
+                <>
+                  { v.check == true ?
+                    (
+                      <div className="" key={k}>
+                        <p>{ v.dolencia }</p>
+                        <div className="form-check form-check-inline">
+                          <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'C' ? false : true} name={k} id="inlineRadio1" value="C" />
+                          <label className="form-check-label" htmlFor="inlineRadio1">C</label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                          <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'E' ? false : true} name={k} id="inlineRadio2" value="E" />
+                          <label className="form-check-label" htmlFor="inlineRadio2">E</label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                          <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'N' ? false : true} name={k} id="inlineRadio3" value="N" />
+                          <label className="form-check-label" htmlFor="inlineRadio3">N</label>
+                        </div>
+                      </div>
+                    ) : (<></>)
+                  }
+                </>
+                
+
+              )
+            })}
+
           </div>
         </div>
         </div>
-        <div className={cls('my-2 d-flex justify-content-center gap-5')}>
-
-            <button type="button" onClick={add} className="btn btn-info">Guardar</button>
-
-        </div>
+        
         <div className={cls('my-3 d-flex justify-content-center gap-3 px-2')}>
             <button type="button" onClick={action} className="btn btn-info">Regresar</button>
 

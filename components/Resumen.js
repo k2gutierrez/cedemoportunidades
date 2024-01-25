@@ -70,14 +70,14 @@ export default function Resumen({ action1, action2 }) {
     const imgProperties = pdf.getImageProperties(img);
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
-    pdf.addImage(img, "PNG", 0, 0, pdfWidth, pdfHeight);
-    pdf.save("Problemas_y_Oportunidades_de_Crecimiento.pdf");
+    await pdf.addImage(img, "PNG", 0, 0, pdfWidth, pdfHeight);
+    await pdf.save("Problemas_y_Oportunidades_de_Crecimiento.pdf");
 };
 
 
   return (
-    <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')} id='pdf' >
-        <div className='row justify-content-center text-center'>
+    <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')} >
+      <div className='row justify-content-center text-center' id='pdf'>
         <div className={cls(styles.main, 'justify-content-center align-items-center')}>
           <div>
             <Image src={logo} alt='CEDEM' className={cls(styles.logo, 'img-fluid')} width={150} height={80} />
@@ -91,86 +91,86 @@ export default function Resumen({ action1, action2 }) {
           <div className={cls(' text-start')}>
             <p className={cls('text-center')}>Causas de Causa</p>
 
-              {listP.filter((word) => word.causaDeCausas == true).map((v, k) => {
+            {listP.filter((word) => word.causaDeCausas == true).map((v, k) => {
 
-                return (
-                  <div key={k} className={cls(styles.card, "card border-primary mb-3")} >
-                    <div className="card-header">{ v.dolencia }</div>
-                    <div className="card-body text-primary">
-                      <p className="card-text">{ v.descripcion }</p>
-                    </div>
+              return (
+                <div key={k} className={cls(styles.card, "card border-primary mb-3")} >
+                  <div className="card-header">{v.dolencia}</div>
+                  <div className="card-body text-primary">
+                    <p className="card-text">{v.descripcion}</p>
                   </div>
+                </div>
 
 
-                )
-              })}
-              {listS.filter((word) => word.causaDeCausas == true).map((v, k) => {
+              )
+            })}
+            {listS.filter((word) => word.causaDeCausas == true).map((v, k) => {
 
-                return (
-                  <div key={k} className={cls(styles.card, "card border-primary mb-3")} >
-                    <div className="card-header">{ v.dolencia }</div>
-                    <div className="card-body text-primary">
-                      <p className="card-text">{ v.descripcion }</p>
-                    </div>
+              return (
+                <div key={k} className={cls(styles.card, "card border-primary mb-3")} >
+                  <div className="card-header">{v.dolencia}</div>
+                  <div className="card-body text-primary">
+                    <p className="card-text">{v.descripcion}</p>
                   </div>
+                </div>
 
-                )
-              })}
+              )
+            })}
 
           </div>
 
           <div className={cls('row my-3 gap-3 px-4 text-start')}>
             <p className={cls('text-center')}>Efectos</p>
-              <ol className="list-group list-group-numbered">
-                {listP.filter((word) => word.categoria == "E").map((v, k) => {
+            <ol className="list-group list-group-numbered">
+              {listP.filter((word) => word.categoria == "E").map((v, k) => {
 
-                  return (
-                    
-                    <li key={k} className="list-group-item">{ v.dolencia }</li>
+                return (
 
-                  )
-                })}
-                {listS.filter((word) => word.categoria == "E").map((v, k) => {
+                  <li key={k} className="list-group-item">{v.dolencia}</li>
 
-                  return (
-                    
-                    <li key={k} className="list-group-item">{ v.dolencia }</li>
+                )
+              })}
+              {listS.filter((word) => word.categoria == "E").map((v, k) => {
 
-                  )
-                })}
-              </ol>
+                return (
+
+                  <li key={k} className="list-group-item">{v.dolencia}</li>
+
+                )
+              })}
+            </ol>
           </div>
 
           <div className={cls('row my-3 gap-3 px-4 text-start')}>
             <p className={cls('text-center')}>No problemas</p>
-              <ol className="list-group list-group-numbered">
-                {listP.filter((word) => word.categoria == "N").map((v, k) => {
+            <ol className="list-group list-group-numbered">
+              {listP.filter((word) => word.categoria == "N").map((v, k) => {
 
-                  return (
-                    
-                      <li key={k} className="list-group-item">{ v.dolencia }</li>
+                return (
 
-                  )
-                })}
-                {listS.filter((word) => word.categoria == "N").map((v, k) => {
+                  <li key={k} className="list-group-item">{v.dolencia}</li>
 
-                  return (
-                    
-                      <li key={k} className="list-group-item">{ v.dolencia }</li>
+                )
+              })}
+              {listS.filter((word) => word.categoria == "N").map((v, k) => {
 
-                  )
-                })}
-              </ol>
+                return (
+
+                  <li key={k} className="list-group-item">{v.dolencia}</li>
+
+                )
+              })}
+            </ol>
 
           </div>
-          
+
         </div>
-        </div>
-        
-        <div className={cls('my-3 d-flex d-flex-column justify-content-center gap-3 px-2')}>
-            <button type="button" onClick={action1} className="btn btn-info">Volver al inicio</button>
-            <button type="button" onClick={createPDF} className="btn btn-info" >Imprimir PDF</button>
-        </div>
+      </div>
+
+      <div className={cls('my-3 d-flex d-flex-column justify-content-center gap-3 px-2')}>
+        <button type="button" onClick={action1} className="btn btn-info">Volver al inicio</button>
+        <button type="button" onClick={createPDF} className="btn btn-info" >Imprimir PDF</button>
+      </div>
     </div>
   )
 }

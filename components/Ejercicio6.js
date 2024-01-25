@@ -120,11 +120,11 @@ export default function Ejercicio6({ action, action2 }) {
                   )
                 })}
 
-                {listS.map((v, k) => {
+                {listS.map((v) => {
 
                   const ans2 = async (e) => {
                     let valor = await e.target.value
-                    setTimeout(addS(k, valor), 5000)
+                    setTimeout(addS(v.key, valor), 5000)
 
                   }
 
@@ -133,7 +133,7 @@ export default function Ejercicio6({ action, action2 }) {
                     
                       { v.causaDeCausas == true &&
                         (
-                          <div key={k} className={cls(styles.list, "align-items-center justify-content-center text-center")}>
+                          <div key={v.key} className={cls(styles.list, "align-items-center justify-content-center text-center")}>
                             <div className="p-2 text-center align-items-center justify-content-center">
                                 <p>{ v.dolencia }</p>
                                 <textarea type="text" className={cls(styles.inputs, "form-control")} onChange={ans2} defaultValue={v.descripcion}  />

@@ -116,20 +116,21 @@ export default function Ejercicio5({ action, action2 }) {
                 )
               })}
 
-              {listSeleccion.map((v, k) => {
+              {listSeleccion.map((v) => {
+                let llave = v.key + 's'
                 let check = v.causaDeCausas
             
                 async function toggleAction () {
                   check = !check
                   v.causaDeCausas = check
                    
-                  await addSele(k, check)
+                  await addSele(v.key, check)
                 }
 
                 return (
                   <>
                     { v.categoria == "C" && (
-                      <div className="form-check" key={k}>
+                      <div className="form-check" key={llave}>
                         <input className="form-check-input" onChange={toggleAction} defaultChecked={check} type="checkbox" value={v.dolencia} id="flexCheckDefault" />
                         <label className="form-check-label" htmlFor="flexCheckDefault">
                           { v.dolencia }

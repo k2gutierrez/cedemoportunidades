@@ -5,6 +5,10 @@ import localFont from 'next/font/local'
 import { db } from '../firebase/firebase'
 import { useAuth } from '../context/authContext'
 import { ref, child, get, set, update } from "firebase/database";
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
+import Image from 'next/image'
+import logo from '../public/assets/cedemLogo.png'
 
 
 const MichromaReg = localFont({ 
@@ -57,11 +61,27 @@ export default function Resumen({ action1, action2 }) {
 
   }, [])
 
+  const createPDF = async () => {
+    /*const pdf = new jsPDF('p','mm',[297, 210]);*/
+    const pdf = new jsPDF("portrait", "mm", "letter");
+    const data = document.getElementById('pdf');
+    const d = await html2canvas(data);
+    const img = d.toDataURL("image/png");
+    const imgProperties = pdf.getImageProperties(img);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
+    pdf.addImage(img, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("Problemas_y_Oportunidades_de_Crecimiento.pdf");
+};
+
 
   return (
-    <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
+    <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')} id='pdf' >
         <div className='row justify-content-center text-center'>
         <div className={cls(styles.main, 'justify-content-center align-items-center')}>
+          <div>
+            <Image src={logo} alt='CEDEM' className={cls(styles.logo, 'img-fluid')} width={150} height={80} />
+          </div>
           <div>
             <p className={cls('text-center')}>
               Oportunidades y Problemas de Crecimiento
@@ -149,7 +169,7 @@ export default function Resumen({ action1, action2 }) {
         
         <div className={cls('my-3 d-flex d-flex-column justify-content-center gap-3 px-2')}>
             <button type="button" onClick={action1} className="btn btn-info">Volver al inicio</button>
-            <button type="button" onClick={action2} className="btn btn-info" disabled>Imprimir PDF</button>
+            <button type="button" onClick={createPDF} className="btn btn-info" >Imprimir PDF</button>
         </div>
     </div>
   )

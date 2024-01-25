@@ -112,13 +112,22 @@ export default function Ejercicio3({ action, action2 }) {
               )
             })}
 
-            {listSeleccion.map((v, k) => {
+            
+
+          </div>
+          <div className={cls('row my-3 gap-5 px-4')}>
+            
+            
+
+            {listSeleccion.map((v) => {
+
+              let llave = v.key + 's'
               
               const getSelection2 = async (e) => {
                 
                 let valor = await e.target.value
 
-                await add2(k, valor)
+                await add2(v.key, valor)
 
               }
 
@@ -126,18 +135,18 @@ export default function Ejercicio3({ action, action2 }) {
                 <>
                   { v.check == true ?
                     (
-                      <div className="" key={k}>
+                      <div className="" key={llave}>
                         <p>{ v.dolencia }</p>
                         <div className="form-check form-check-inline">
-                          <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'C' ? false : true} name={k} id="inlineRadio1" value="C" />
+                          <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'C' ? false : true} name={llave} id="inlineRadio1" value="C" />
                           <label className="form-check-label" htmlFor="inlineRadio1">C</label>
                         </div>
                         <div className="form-check form-check-inline">
-                          <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'E' ? false : true} name={k} id="inlineRadio2" value="E" />
+                          <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'E' ? false : true} name={llave} id="inlineRadio2" value="E" />
                           <label className="form-check-label" htmlFor="inlineRadio2">E</label>
                         </div>
                         <div className="form-check form-check-inline">
-                          <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'N' ? false : true} name={k} id="inlineRadio3" value="N" />
+                          <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'N' ? false : true} name={llave} id="inlineRadio3" value="N" />
                           <label className="form-check-label" htmlFor="inlineRadio3">N</label>
                         </div>
                       </div>

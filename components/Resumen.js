@@ -27,7 +27,7 @@ const MontserratSemiBold = localFont({
   src: '../public/fonts/Montserrat-SemiBold.ttf'
 })
 
-export default function Resumen({ action1, action2 }) {
+export default function Resumen({ action1 }) {
 
   const { currentUser } = useAuth()
 

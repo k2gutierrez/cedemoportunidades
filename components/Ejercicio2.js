@@ -66,9 +66,17 @@ export default function Ejercicio2({ action, action2 }) {
     
   }
 
-  async function add (key, val) {
+  async function addT (key, val) {
     const adding = await update(ref(db, currentUser.uid + `/dolencias/Seleccion/${key}/`), {
       check: val
+    })
+    
+  }
+
+  async function addF (key, val) {
+    const adding = await update(ref(db, currentUser.uid + `/dolencias/Seleccion/${key}/`), {
+      check: val,
+      categoria: ""
     })
     
   }
@@ -102,8 +110,14 @@ export default function Ejercicio2({ action, action2 }) {
             async function toggleAction () {
               check = !check
               v.check = check
-               
-              await add(k, check)
+              
+              if (check == true){
+                await addT(k, check)
+              } else if (check == false){
+                await addF(k, check)
+              }
+
+              
             }
 
             return (
@@ -129,3 +143,6 @@ export default function Ejercicio2({ action, action2 }) {
     </div>
   )
 }
+// al quitar el check, cambiar categorìa a ""   ya
+// en impresiòn poner nombre y fecha actual
+// mandar a correo con pdf

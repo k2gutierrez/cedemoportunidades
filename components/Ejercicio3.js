@@ -170,3 +170,5 @@ export default function Ejercicio3({ action, action2 }) {
     </div>
   )
 }
+
+

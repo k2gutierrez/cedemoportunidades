@@ -78,12 +78,12 @@ export default function Ejercicio5({ action, action2 }) {
         <div className={cls(styles.main, 'row')}>
           <div>
             <p className={cls('text-center')}>
-              Identificando Causas de Causas
+              Causas más Relevantes
             </p>
           </div>
           <div>
             <p className={cls('text-start')}>
-              Selecciona las 3 causas que consideres más importantes a atacar
+              Selecciona las 3 causas que consideres más importantes a atender en este momento:
             </p>
           </div>
 

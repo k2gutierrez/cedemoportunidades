@@ -51,7 +51,7 @@ export default function Home() {
       {currentUser && menu == 4 && <Ejercicio4 action={() => setMenu(3)} action2={() => setMenu(5)}/>}
       {currentUser && menu == 5 && <Ejercicio5 action={() => setMenu(4)} action2={() => setMenu(6)}/>}
       {currentUser && menu == 6 && <Ejercicio6 action={() => setMenu(5)} action2={() => setMenu(7)}/>}
-      {currentUser && menu == 7 && <Resumen action={() => setMenu(0)} action2={null} />}
+      {currentUser && menu == 7 && <Resumen action1={() => setMenu(0)}  />}
     </main>
   )
 }

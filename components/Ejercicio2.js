@@ -38,7 +38,7 @@ export default function Ejercicio2({ action, action2 }) {
     if (getDolencias.exists()) {
 
       setListP(getDolencias.val())
-    }
+    }                                       slice(0, 26).
   }*/}
 
   async function getSeleccion () {
@@ -96,7 +96,7 @@ export default function Ejercicio2({ action, action2 }) {
         </div>
         <div className={cls('row text-start my-3 gap-3 px-4')}>
 
-          {ListP.slice(0, 26).map((v, k) => {
+          {ListP.map((v, k) => { 
             let check = v.check
             
             async function toggleAction () {

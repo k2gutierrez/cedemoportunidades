@@ -5,6 +5,7 @@ import Login from '../../components/Login'
 import { useAuth } from '../../context/authContext'
 import { useEffect, useState } from 'react'
 import Navbars from '../../components/Navbar'
+import Navbar2 from '../../components/Navbar2'
 import Dashboard from '../../components/Dashboard'
 import Ejercicio1 from '../../components/Ejercicio1'
 import Ejercicio2 from '../../components/Ejercicio2'
@@ -41,7 +42,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      {currentUser &&<Navbars opcion1={() => setMenu(0)} user={data.NIVEL} opcion2={() => setMenu('owner')} />}
+      {currentUser &&<Navbar2 opcion1={() => setMenu(0)} user={data.NIVEL} opcion2={() => setMenu('owner')} />}
       {!currentUser &&<Login />}
       {currentUser && menu == 'owner' &&<OwnerDashboard action={() => setMenu(1)} />}
       {currentUser && menu == 0 &&<Dashboard action={() => setMenu(1)} />}

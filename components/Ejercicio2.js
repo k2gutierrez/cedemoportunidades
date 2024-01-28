@@ -90,9 +90,9 @@ export default function Ejercicio2({ action, action2 }) {
 
 
   return (
-    <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
+    <div className={cls(MontserratSemiBold.className, styles.cont, 'py-3 px-2')}>
       <div className='row justify-content-center'>
-      <div className={cls(styles.main, 'row')}>
+      <div className={cls(styles.main, '')}>
         <div className=''>
           <p className={cls('text-start')}>
             Favor de seleccionar en las casillas de la parte izquierda 
@@ -102,7 +102,7 @@ export default function Ejercicio2({ action, action2 }) {
             ocasión para buscar caminos de mejora.
           </p>
         </div>
-        <div className={cls('row text-start my-3px-4')}>
+        <div className={cls('text-start')}>
           
           <ul class="list-group list-group-numbered justify-content-center">
 
@@ -126,7 +126,7 @@ export default function Ejercicio2({ action, action2 }) {
 
             return (
              
-              <li class="list-group-item p-4" key={k}>
+              <li class="list-group-item ps-2 py-4" key={k}>
                 <input className="form-check-input" defaultChecked={check} onChange={toggleAction} type="checkbox" value={v.dolencia} id="flexCheckDefault" />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                   {'  ' + v.dolencia }
@@ -142,7 +142,7 @@ export default function Ejercicio2({ action, action2 }) {
       </div>
       </div>
       
-      <div className={cls('my-3 d-flex justify-content-center gap-3 px-2')}>
+      <div className={cls('mt-3 mb-4 d-flex justify-content-center gap-3 px-2')}>
           <button type="button" onClick={action} className="btn btn-info">Regresar</button>
 
           <button type="button" onClick={action2} className="btn btn-info">Continuar</button>

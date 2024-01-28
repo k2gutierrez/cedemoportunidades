@@ -56,16 +56,16 @@ export default function Ejercicio4({ action, action2 }) {
   }, [])
 
   return (
-    <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
+    <div className={cls(MontserratSemiBold.className, styles.cont, 'py-3')}>
         <div className='row justify-content-center'>
         <div className={cls(styles.main, 'row')}>
           <div>
-            <p className={cls('text-center')}>
+            <p className={cls(MontserratExtraBold.className, 'text-center')}>
               Lista por Categoría
             </p>
           </div>
-          <div className={cls('row my-3 gap-3 px-4 text-start')}>
-            <p className={cls('text-center')}>Causas</p>
+          <div className={cls('my-3 text-start')}>
+            {/*<p className={cls('text-center')}>Causas</p>
             <ul className="list-group-numbered">
               { list.filter((word) => word.categoria == "C").map((v, k) => {
                 return (
@@ -74,11 +74,33 @@ export default function Ejercicio4({ action, action2 }) {
 
                 )
               })}
-            </ul>
+            </ul>*/}
+            <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Causas</th>
+              </tr>
+            </thead>
+            <tbody>
+              { list.filter((word) => word.categoria == "C").map((v, k) => {
+                return (
+                  <tr>
+                    <th scope="row">{ k +1 }</th>
+                    <td>{ v.dolencia }</td>
+                  </tr>
+                  
+
+                )
+              })}
+              
+            </tbody>
+
+            </table>
           </div>
-          <div className={cls('row my-3 gap-3 px-4 text-start')}>
-            <p className={cls('text-center')}>Efectos</p>
-            <ul className="list-group-numbered">
+          <div className={cls('my-3 text-start')}>
+            
+            {/*<ul className="list-group-numbered">
               { list.filter((word) => word.categoria == "E").map((v, k) => {
                 return (
                   
@@ -86,19 +108,66 @@ export default function Ejercicio4({ action, action2 }) {
 
                 )
               })}
-            </ul>
+            </ul>*/}
+            <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Efectos</th>
+              </tr>
+            </thead>
+            <tbody>
+              { list.filter((word) => word.categoria == "E").map((v, k) => {
+                return (
+                  <tr>
+                    <th scope="row">{ k +1 }</th>
+                    <td>{ v.dolencia }</td>
+                  </tr>
+                  
+
+                )
+              })}
+              
+            </tbody>
+
+            </table>
           </div>
-          <div className={cls('row my-3 gap-3 px-4 text-start')}>
-            <p className={cls('text-center')}>No Problemas</p>
+          <div className={cls('my-3 text-start')}>
+            {/*<p className={cls('text-center')}>No Problemas</p>
             <ul className="list-group-numbered">
               { list.filter((word) => word.categoria == "N").map((v, k) => {
                 return (
                   
-                  <a key={k} className="list-group-item"> {v.dolencia}  </a>
+                  <li key={k} className="list-group-item"> {v.dolencia}  </li>
 
                 )
               })}
-            </ul>
+            </ul>*/}
+
+            <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">No Problemas</th>
+              </tr>
+            </thead>
+            <tbody>
+              { list.filter((word) => word.categoria == "N").map((v, k) => {
+                return (
+                  <tr>
+                    <th scope="row">{ k +1 }</th>
+                    <td>{ v.dolencia }</td>
+                  </tr>
+                  
+
+                )
+              })}
+              
+            </tbody>
+
+            </table>
+
+            
           </div>
         </div>
         </div>

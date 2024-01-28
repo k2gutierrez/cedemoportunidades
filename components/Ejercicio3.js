@@ -8,9 +8,9 @@ import { ref, child, get, set, update } from "firebase/database";
 import _ from 'lodash'
 
 
-const MichromaReg = localFont({ 
+const MichromaReg = localFont({
   src: '../public/fonts/Michroma-Regular.ttf'
-} )
+})
 
 const MontserratLight = localFont({
   src: '../public/fonts/Montserrat-Light.ttf'
@@ -32,7 +32,7 @@ export default function Ejercicio3({ action, action2 }) {
   let [listP, setListP] = useState([])
   let arr = []
 
-  async function getList () {
+  async function getList() {
     let newArray1 = []
     let newArray2 = []
     const dbRef = ref(db)
@@ -52,13 +52,13 @@ export default function Ejercicio3({ action, action2 }) {
     }
   }
 
-  async function add1  (key, val) {
+  async function add1(key, val) {
     const adding = await update(ref(db, currentUser.uid + `/dolencias/listaP/${key}/`), {
       categoria: val
     })
   }
 
-  async function add2  (key, val) {
+  async function add2(key, val) {
     const adding = await update(ref(db, currentUser.uid + `/dolencias/Seleccion/${key}/`), {
       categoria: val
     })
@@ -71,103 +71,103 @@ export default function Ejercicio3({ action, action2 }) {
   }, [])
 
   return (
-    <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
-        <div className='row justify-content-center'>
-        <div className={cls(styles.main, 'row')}>
+    <div className={cls(MontserratSemiBold.className, styles.cont, 'pt-3 pb-5')}>
+      <div className='row justify-content-center align-items-center'>
+        <div className={cls(styles.main, '')}>
           <div>
             <p className={cls('text-start')}>
-              Analiza cada opción por separado sin relacionarlas con las demás. Elige si la opción 
+              Analiza cada opción por separado sin relacionarlas con las demás. Elige si la opción
               es una Causa (C), Efecto (E) o No Problema (N).
             </p>
           </div>
-          <div className={cls('row my-3 gap-5 px-4')}>
+          <div className={cls('row')}>
             <ul class="list-group">
-            {listP.map((v, k) => {
-              
-              const getSelection1 = async (e) => {
-                
-                let valor = await e.target.value
+              {listP.map((v, k) => {
 
-                await add1(k, valor)
+                const getSelection1 = async (e) => {
 
-              }
+                  let valor = await e.target.value
 
-              return (
-                <li class="list-group-item p-4" key={k}>
-                  <p>{ v.dolencia }</p>
-                  <div className="form-check form-check-inline">
-                    <input className="form-check-input" onChange={getSelection1} type="radio" defaultChecked={v.categoria != 'C' ? false : true} name={k} id="inlineRadio1" value="C" />
-                    <label className="form-check-label" htmlFor="inlineRadio1">C</label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <input className="form-check-input" onChange={getSelection1} type="radio" defaultChecked={v.categoria != 'E' ? false : true} name={k} id="inlineRadio2" value="E" />
-                    <label className="form-check-label" htmlFor="inlineRadio2">E</label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <input className="form-check-input" onChange={getSelection1} type="radio" defaultChecked={v.categoria != 'N' ? false : true} name={k} id="inlineRadio3" value="N" />
-                    <label className="form-check-label" htmlFor="inlineRadio3">N</label>
-                  </div>
-                </li>
+                  await add1(k, valor)
 
-              )
-            })}
+                }
 
-            
+                return (
+                  <li class="list-group-item py-3 px-2" key={k}>
+                    <p>{v.dolencia}</p>
+                    <div className="form-check form-check-inline">
+                      <input className="form-check-input" onChange={getSelection1} type="radio" defaultChecked={v.categoria != 'C' ? false : true} name={k} id="inlineRadio1" value="C" />
+                      <label className="form-check-label" htmlFor="inlineRadio1">C</label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input className="form-check-input" onChange={getSelection1} type="radio" defaultChecked={v.categoria != 'E' ? false : true} name={k} id="inlineRadio2" value="E" />
+                      <label className="form-check-label" htmlFor="inlineRadio2">E</label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input className="form-check-input" onChange={getSelection1} type="radio" defaultChecked={v.categoria != 'N' ? false : true} name={k} id="inlineRadio3" value="N" />
+                      <label className="form-check-label" htmlFor="inlineRadio3">N</label>
+                    </div>
+                  </li>
+
+                )
+              })}
+
+
             </ul>
           </div>
-          <div className={cls('row my-3 gap-5 px-4')}>
-            
+          <div className={cls('row')}>
+
             <ul class="list-group">
 
 
-            {listSeleccion.map((v) => {
+              {listSeleccion.map((v) => {
 
-              let llave = v.key + 's'
-              
-              const getSelection2 = async (e) => {
-                
-                let valor = await e.target.value
+                let llave = v.key + 's'
 
-                await add2(v.key, valor)
+                const getSelection2 = async (e) => {
 
-              }
+                  let valor = await e.target.value
 
-              return (
-                <>
-                  { v.check == true ?
-                    (
-                      <li class="list-group-item p-4" key={llave}>
-                        <p>{ v.dolencia }</p>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'C' ? false : true} name={llave} id="inlineRadio1" value="C" />
-                          <label className="form-check-label" htmlFor="inlineRadio1">C</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'E' ? false : true} name={llave} id="inlineRadio2" value="E" />
-                          <label className="form-check-label" htmlFor="inlineRadio2">E</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'N' ? false : true} name={llave} id="inlineRadio3" value="N" />
-                          <label className="form-check-label" htmlFor="inlineRadio3">N</label>
-                        </div>
-                      </li>
-                    ) : (<></>)
-                  }
-                </>
-                
+                  await add2(v.key, valor)
 
-              )
-            })}
+                }
+
+                return (
+                  <>
+                    {v.check == true ?
+                      (
+                        <li class="list-group-item py-3 px-2" key={llave}>
+                          <p>{v.dolencia}</p>
+                          <div className="form-check form-check-inline">
+                            <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'C' ? false : true} name={llave} id="inlineRadio1" value="C" />
+                            <label className="form-check-label" htmlFor="inlineRadio1">C</label>
+                          </div>
+                          <div className="form-check form-check-inline">
+                            <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'E' ? false : true} name={llave} id="inlineRadio2" value="E" />
+                            <label className="form-check-label" htmlFor="inlineRadio2">E</label>
+                          </div>
+                          <div className="form-check form-check-inline">
+                            <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'N' ? false : true} name={llave} id="inlineRadio3" value="N" />
+                            <label className="form-check-label" htmlFor="inlineRadio3">N</label>
+                          </div>
+                        </li>
+                      ) : (<></>)
+                    }
+                  </>
+
+
+                )
+              })}
             </ul>
           </div>
         </div>
-        </div>
-        
-        <div className={cls('my-3 d-flex justify-content-center gap-3 px-2')}>
-            <button type="button" onClick={action} className="btn btn-info">Regresar</button>
+      </div>
 
-            <button type="button" onClick={action2} className="btn btn-info">Continuar</button>
-        </div>
+      <div className={cls('mt-3 mb-4 d-flex justify-content-center gap-3 px-2')}>
+        <button type="button" onClick={action} className="btn btn-info">Regresar</button>
+
+        <button type="button" onClick={action2} className="btn btn-info">Continuar</button>
+      </div>
     </div>
   )
 }

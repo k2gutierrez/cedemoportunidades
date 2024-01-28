@@ -11,9 +11,9 @@ import Image from 'next/image'
 import logo from '../public/assets/cedemLogo.png'
 
 
-const MichromaReg = localFont({ 
+const MichromaReg = localFont({
   src: '../public/fonts/Michroma-Regular.ttf'
-} )
+})
 
 const MontserratLight = localFont({
   src: '../public/fonts/Montserrat-Light.ttf'
@@ -33,11 +33,20 @@ export default function Resumen({ action1 }) {
 
   let [listS, setListS] = useState([])
   let [listP, setListP] = useState([])
+  let [user, setUser] = useState({})
 
-  async function getList () {
+  let currentDate = new Date().toJSON().slice (0, 10)
+
+  async function getList() {
     let newArray1 = []
     let newArray2 = []
     const dbRef = ref(db)
+
+    const getName = await get(child(dbRef, currentUser.uid))
+    if (getName.exists()) {
+      setUser(getName.val())
+    }
+
     const getDolenciasP = await get(child(dbRef, currentUser.uid + '/dolencias/listaP'))
     if (getDolenciasP.exists()) {
       for (let x in getDolenciasP.val()) {
@@ -71,96 +80,137 @@ export default function Resumen({ action1 }) {
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
     await pdf.addImage(img, "PNG", 0, 0, pdfWidth, pdfHeight);
-    await pdf.save("Problemas_y_Oportunidades_de_Crecimiento.pdf");
-};
+    await pdf.save(`${user.NAME}_Oportunidades_de_Crecimiento_${currentDate}.pdf`);
+  };
 
 
   return (
-    <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')} >
-      <div className='row justify-content-center text-center' id='pdf'>
-        <div className={cls(styles.main, 'justify-content-center align-items-center')}>
+    <div className={cls(MontserratSemiBold.className, styles.cont, 'py-3')} >
+      <div className='row ' id='pdf'>
+        <div className={cls(styles.main, '')}>
           <div>
             <Image src={logo} alt='CEDEM' className={cls(styles.logo, 'img-fluid')} width={150} height={80} />
           </div>
           <div>
-            <p className={cls('text-center')}>
+            <p className={cls(MontserratExtraBold.className, 'text-center')}>
               Oportunidades y Problemas de Crecimiento
             </p>
           </div>
 
-          <div className={cls(' text-start')}>
-            <p className={cls('text-center')}>Causas de Causa</p>
+          <div className={cls('mb-4 text-start px-3')}>
+            
+
+            <table className={cls(styles.tables, "table table-striped")}>
+            <thead>
+              <tr>
+                <th scope="col">Causas más Relevantes</th>
+              </tr>
+            </thead>
+            <tbody>
 
             {listP.filter((word) => word.causaDeCausas == true).map((v, k) => {
 
               return (
-                <div key={k} className={cls(styles.card, "card border-primary mb-3")} >
-                  <div className="card-header">{v.dolencia}</div>
-                  <div className="card-body text-primary">
-                    <p className="card-text">{v.descripcion}</p>
-                  </div>
-                </div>
+                <tr>
+                  <td scope="row" key={k}>
+                    <p>{'Causa: ' + v.dolencia}</p>
+                    <p>{'Descripción: ' + v.descripcion }</p>
+                  </td>
+                </tr>
+                
 
 
               )
             })}
+            
+
             {listS.filter((word) => word.causaDeCausas == true).map((v, k) => {
 
               return (
-                <div key={k} className={cls(styles.card, "card border-primary mb-3")} >
-                  <div className="card-header">{v.dolencia}</div>
-                  <div className="card-body text-primary">
-                    <p className="card-text">{v.descripcion}</p>
-                  </div>
-                </div>
+                <tr>
+                  <td scope="row" key={k}>
+                    <p>{'Causa: ' + v.dolencia}</p>
+                    <p>{'Descripción: ' + v.descripcion }</p>
+                </td>
+                </tr>
 
               )
             })}
+            </tbody>
+            </table>
 
           </div>
 
-          <div className={cls('row my-3 gap-3 px-4 text-start')}>
-            <p className={cls('text-center')}>Efectos</p>
-            <ol className="list-group list-group-numbered">
+          <div className={cls('mb-4 px-3 text-start')}>
+            
+            <table className={cls(styles.tables, "table table-striped")}>
+            <thead>
+              <tr>
+                <th scope="col">Efectos</th>
+              </tr>
+            </thead>
+            <tbody>
               {listP.filter((word) => word.categoria == "E").map((v, k) => {
 
                 return (
-
-                  <li key={k} className="list-group-item">{v.dolencia}</li>
+                  <tr>
+                    <td scope="row" key={k}>
+                      <p>{v.dolencia}</p>
+                    </td>
+                  </tr>
 
                 )
               })}
               {listS.filter((word) => word.categoria == "E").map((v, k) => {
 
                 return (
-
-                  <li key={k} className="list-group-item">{v.dolencia}</li>
+                  <tr>
+                    <td scope="row" key={k}>
+                      <p>{v.dolencia}</p>
+                    </td>
+                  </tr>
 
                 )
               })}
-            </ol>
+            </tbody>
+            </table>
           </div>
 
-          <div className={cls('row my-3 gap-3 px-4 text-start')}>
-            <p className={cls('text-center')}>No problemas</p>
-            <ol className="list-group list-group-numbered">
+          <div className={cls('mb-4 px-3 text-start')}>
+
+            <table className={cls(styles.tables, "table table-striped")}>
+            <thead>
+              <tr>
+                <th scope="col">No Problemas</th>
+              </tr>
+            </thead>
+            <tbody>
+
               {listP.filter((word) => word.categoria == "N").map((v, k) => {
 
                 return (
-
-                  <li key={k} className="list-group-item">{v.dolencia}</li>
+                  <tr>
+                    <td scope="row" key={k}>
+                      <p>{v.dolencia}</p>
+                    </td>
+                  </tr>
 
                 )
               })}
               {listS.filter((word) => word.categoria == "N").map((v, k) => {
 
                 return (
-
-                  <li key={k} className="list-group-item">{v.dolencia}</li>
+                  <tr>
+                    <td scope="row" key={k}>
+                      <p>{v.dolencia}</p>
+                    </td>
+                  </tr>
 
                 )
               })}
-            </ol>
+
+            </tbody>
+            </table>
 
           </div>
 

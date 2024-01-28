@@ -29,6 +29,10 @@
     width: 80%  ;
 }
 
+.tables {
+    border-style: solid;
+}
+
 /* LG Screen */
 @media (min-width: 1121px) {   
     .main {

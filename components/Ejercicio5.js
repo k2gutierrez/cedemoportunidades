@@ -73,7 +73,7 @@ export default function Ejercicio5({ action, action2 }) {
   }, [])
 
   return (
-    <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
+    <div className={cls(MontserratSemiBold.className, styles.cont, 'pt-3 px-2')}>
         <div className='row justify-content-center'>
         <div className={cls(styles.main, 'row')}>
           <div>
@@ -87,8 +87,9 @@ export default function Ejercicio5({ action, action2 }) {
             </p>
           </div>
 
-          <div className={cls('row my-3 gap-3 px-4 text-start')}>
+          <div className={cls('text-start')}>
             <p className={cls('text-center')}>Causas</p>
+              <ul class="list-group">
 
               {listP.map((v, k) => {
                 let check = v.causaDeCausas
@@ -103,19 +104,22 @@ export default function Ejercicio5({ action, action2 }) {
                 return (
                   <>
                     { v.categoria == "C" && (
-                      <div className="form-check" key={k}>
+                      <li class="list-group-item py-3" key={k}>
+                      <div className="form-check">
                         <input className="form-check-input" onChange={toggleAction} defaultChecked={check} type="checkbox" value={v.dolencia} id="flexCheckDefault" />
                         <label className="form-check-label" htmlFor="flexCheckDefault">
                           { v.dolencia }
                         </label>
                       </div>
+                      </li>
                     )
 
                     }
                   </>
                 )
               })}
-
+                </ul>
+                <ul class="list-group">
               {listSeleccion.map((v) => {
                 let llave = v.key + 's'
                 let check = v.causaDeCausas
@@ -130,18 +134,21 @@ export default function Ejercicio5({ action, action2 }) {
                 return (
                   <>
                     { v.categoria == "C" && (
-                      <div className="form-check" key={llave}>
+                      <li class="list-group-item py-3" key={llave}>
+                      <div className="form-check"> 
                         <input className="form-check-input" onChange={toggleAction} defaultChecked={check} type="checkbox" value={v.dolencia} id="flexCheckDefault" />
                         <label className="form-check-label" htmlFor="flexCheckDefault">
                           { v.dolencia }
                         </label>
                       </div>
+                      </li>
                     )
 
                     }
                   </>
                 )
               })}
+              </ul>
 
           </div>
           

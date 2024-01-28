@@ -129,7 +129,7 @@ export default function Ejercicio2({ action, action2 }) {
               <li class="list-group-item ps-2 py-4" key={k}>
                 <input className="form-check-input" defaultChecked={check} onChange={toggleAction} type="checkbox" value={v.dolencia} id="flexCheckDefault" />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
-                  {'  ' + v.dolencia }
+                  { v.dolencia }
                 </label>
               </li>
               

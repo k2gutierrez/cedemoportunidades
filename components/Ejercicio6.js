@@ -10,9 +10,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 
 
-const MichromaReg = localFont({ 
+const MichromaReg = localFont({
   src: '../public/fonts/Michroma-Regular.ttf'
-} )
+})
 
 const MontserratLight = localFont({
   src: '../public/fonts/Montserrat-Light.ttf'
@@ -33,7 +33,7 @@ export default function Ejercicio6({ action, action2 }) {
   let [listP, setListP] = useState([])
   let [listS, setListS] = useState([])
 
-  async function getList () {
+  async function getList() {
     let newArray1 = []
     let newArray2 = []
     const dbRef = ref(db)
@@ -54,13 +54,13 @@ export default function Ejercicio6({ action, action2 }) {
     setListS(newArray2)
   }
 
-  async function addP (key, val) {
+  async function addP(key, val) {
     const adding = await update(ref(db, currentUser.uid + `/dolencias/listaP/${key}/`), {
       descripcion: val
     })
   }
 
-  async function addS (key, val) {
+  async function addS(key, val) {
     const adding = await update(ref(db, currentUser.uid + `/dolencias/Seleccion/${key}/`), {
       descripcion: val
     })
@@ -69,19 +69,19 @@ export default function Ejercicio6({ action, action2 }) {
   useEffect(() => {
 
     getList()
-    
+
 
   }, [])
 
 
   return (
-    <div className={cls(MontserratSemiBold.className, styles.cont, 'text-center p-3')}>
-        <div className='row'>
-        <div className={cls(styles.main, 'align-items-center justify-content-center self-align-center')}>
-          <div className={cls('justify-content-center')}>
+    <div className={cls(MontserratSemiBold.className, styles.cont, 'text-center py-3')}>
+      <div className='row align-items-center justify-content-center px-2'>
+        <div className={cls(styles.main, 'text-start} align-items-center justify-content-center')}>
+          <div className={cls('')}>
             <div>
               <p className={cls('text-center')}>
-                Identificando Causas de Causas
+                Identificando las Causas más Relevantes
               </p>
             </div>
             <div>
@@ -90,8 +90,8 @@ export default function Ejercicio6({ action, action2 }) {
               </p>
             </div>
 
-            <div className={cls('my-3 gap-3 px-4')}>
-              <p className={cls('text-center')}>Causas de Causa</p>
+            <div className={cls('my-3 text-start')}>
+              <ul class="list-group">
 
                 {listP.map((v, k) => {
 
@@ -103,23 +103,26 @@ export default function Ejercicio6({ action, action2 }) {
 
                   return (
                     <>
-                    
-                      { v.causaDeCausas == true &&
+
+                      {v.causaDeCausas == true &&
                         (
-                          <div key={k} className={cls(styles.list, "align-items-center justify-content-center text-center")}>
-                            <div className="p-2 text-center align-items-center justify-content-center">
-                                <p>{ v.dolencia }</p>
-                                <textarea type="text" className={cls(styles.inputs, "form-control")} onChange={ans1} defaultValue={v.descripcion}  />
-                              
+                          <li class="list-group-item" key={k}>
+                            <div className={cls(styles.list, "")}>
+                              <div className="py-1">
+                                <p>{v.dolencia}</p>
+                                <textarea type="text" className={cls(styles.inputs, "form-control")} onChange={ans1} defaultValue={v.descripcion} />
+
+                              </div>
                             </div>
-                          </div>
+                          </li>
                         )
                       }
 
                     </>
                   )
                 })}
-
+              </ul>
+              <ul class="list-group">
                 {listS.map((v) => {
 
                   const ans2 = async (e) => {
@@ -130,34 +133,37 @@ export default function Ejercicio6({ action, action2 }) {
 
                   return (
                     <>
-                    
-                      { v.causaDeCausas == true &&
+
+                      {v.causaDeCausas == true &&
                         (
-                          <div key={v.key} className={cls(styles.list, "align-items-center justify-content-center text-center")}>
-                            <div className="p-2 text-center align-items-center justify-content-center">
-                                <p>{ v.dolencia }</p>
-                                <textarea type="text" className={cls(styles.inputs, "form-control")} onChange={ans2} defaultValue={v.descripcion}  />
-                              
+                          <li class="list-group-item" key={v.key}>
+                            <div className={cls(styles.list, "")}>
+                              <div className="py-1">
+                                <p>{v.dolencia}</p>
+                                <textarea type="text" className={cls(styles.inputs, "form-control")} onChange={ans2} defaultValue={v.descripcion} />
+
+                              </div>
                             </div>
-                          </div>
+                          </li>
                         )
                       }
 
                     </>
                   )
                 })}
+              </ul>
 
             </div>
           </div>
-          
-        </div>
-        </div>
-        
-        <div className={cls('my-3 d-flex d-flex-column justify-content-center gap-3 px-2')}>
-            <button type="button" onClick={action} className="btn btn-info">Regresar</button>
 
-            <button type="button" onClick={action2} className="btn btn-info">Continuar</button>
         </div>
+      </div>
+
+      <div className={cls('my-3 d-flex d-flex-column justify-content-center gap-3 px-2')}>
+        <button type="button" onClick={action} className="btn btn-info">Regresar</button>
+
+        <button type="button" onClick={action2} className="btn btn-info">Continuar</button>
+      </div>
     </div>
   )
 }

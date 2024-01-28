@@ -26,7 +26,7 @@ export default function Navbars({ opcion1, user, opcion2 }) {
 
         <Navbar collapseOnSelect expand="lg" bg='secondary' className="bg-body-primary" data-bs-theme="dark" >
             <Container fluid>
-            <Navbar.Brand href="/"><Image src={logo} className={cls(styles.logo,'img-fluid')} alt='Consultoría de Dueños' width={100} height={50} /> </Navbar.Brand>
+            <Navbar.Brand href="/"><Image src={logo} className={cls(styles.logo,'img-fluid')} alt='Consultoría de Dueños' width={150} height={50} /> </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto align-items-center">

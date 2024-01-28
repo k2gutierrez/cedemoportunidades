@@ -7,9 +7,6 @@
     background: white;
 }
 
-.main {
-    width: 95%;
-}
 
 .title {
     font-size: 5.5vw;
@@ -47,11 +44,12 @@
     height: auto;
 }
 
+.tables {
+    border-style: solid;
+}
+
 /* LG Screen */
 @media (min-width: 1121px) {   
-    .main {
-        width: 60%;
-    }
 
     .logo {
         width: 25vw;
@@ -62,9 +60,6 @@
 
 /* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
-    .main {
-        width: 80%;
-    }
 
     .logo {
         width: 30vw;

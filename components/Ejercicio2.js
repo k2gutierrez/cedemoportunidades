@@ -102,7 +102,11 @@ export default function Ejercicio2({ action, action2 }) {
             ocasión para buscar caminos de mejora.
           </p>
         </div>
-        <div className={cls('row text-start my-3 gap-3 px-4')}>
+        <div className={cls('row text-start my-3px-4')}>
+          
+          <ul class="list-group list-group-numbered justify-content-center">
+
+
 
           {ListP.map((v, k) => { 
             let check = v.check
@@ -121,16 +125,19 @@ export default function Ejercicio2({ action, action2 }) {
             }
 
             return (
-              <div className="form-check" key={k}>
+             
+              <li class="list-group-item p-4" key={k}>
                 <input className="form-check-input" defaultChecked={check} onChange={toggleAction} type="checkbox" value={v.dolencia} id="flexCheckDefault" />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
-                  { v.dolencia }
+                  {'  ' + v.dolencia }
                 </label>
-              </div>
+              </li>
+              
 
             )
           })}
-
+         
+          </ul>
         </div>
       </div>
       </div>
@@ -143,6 +150,6 @@ export default function Ejercicio2({ action, action2 }) {
     </div>
   )
 }
-// al quitar el check, cambiar categorìa a ""   ya
+
 // en impresiòn poner nombre y fecha actual
 // mandar a correo con pdf

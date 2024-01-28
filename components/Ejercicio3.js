@@ -81,7 +81,7 @@ export default function Ejercicio3({ action, action2 }) {
             </p>
           </div>
           <div className={cls('row my-3 gap-5 px-4')}>
-            
+            <ul class="list-group">
             {listP.map((v, k) => {
               
               const getSelection1 = async (e) => {
@@ -93,7 +93,7 @@ export default function Ejercicio3({ action, action2 }) {
               }
 
               return (
-                <div className="" key={k}>
+                <li class="list-group-item p-4" key={k}>
                   <p>{ v.dolencia }</p>
                   <div className="form-check form-check-inline">
                     <input className="form-check-input" onChange={getSelection1} type="radio" defaultChecked={v.categoria != 'C' ? false : true} name={k} id="inlineRadio1" value="C" />
@@ -107,17 +107,18 @@ export default function Ejercicio3({ action, action2 }) {
                     <input className="form-check-input" onChange={getSelection1} type="radio" defaultChecked={v.categoria != 'N' ? false : true} name={k} id="inlineRadio3" value="N" />
                     <label className="form-check-label" htmlFor="inlineRadio3">N</label>
                   </div>
-                </div>
+                </li>
 
               )
             })}
 
             
-
+            </ul>
           </div>
           <div className={cls('row my-3 gap-5 px-4')}>
             
-            
+            <ul class="list-group">
+
 
             {listSeleccion.map((v) => {
 
@@ -135,7 +136,7 @@ export default function Ejercicio3({ action, action2 }) {
                 <>
                   { v.check == true ?
                     (
-                      <div className="" key={llave}>
+                      <li class="list-group-item p-4" key={llave}>
                         <p>{ v.dolencia }</p>
                         <div className="form-check form-check-inline">
                           <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'C' ? false : true} name={llave} id="inlineRadio1" value="C" />
@@ -149,7 +150,7 @@ export default function Ejercicio3({ action, action2 }) {
                           <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'N' ? false : true} name={llave} id="inlineRadio3" value="N" />
                           <label className="form-check-label" htmlFor="inlineRadio3">N</label>
                         </div>
-                      </div>
+                      </li>
                     ) : (<></>)
                   }
                 </>
@@ -157,7 +158,7 @@ export default function Ejercicio3({ action, action2 }) {
 
               )
             })}
-
+            </ul>
           </div>
         </div>
         </div>

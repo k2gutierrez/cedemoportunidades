@@ -123,7 +123,8 @@ export default function Ejercicio1({ action, action2 }) {
                 })
                 
                 await add(arr1)
-                await getListP()
+                await setListP([])
+                
               }
 
               return (

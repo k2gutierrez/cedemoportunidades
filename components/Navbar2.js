@@ -5,7 +5,7 @@ import logo from '../public/assets/cedemLogo.png'
 import cls from 'classnames'
 import { useAuth } from '../context/authContext'
 
-export default function Navbar2({ opcion1, user, opcion2, Logout }) {
+export default function Navbar2({ opcion1, user, opcion2, Logout, opcion3 }) {
 
     const { logout, currentUser } = useAuth()
 
@@ -40,9 +40,21 @@ export default function Navbar2({ opcion1, user, opcion2, Logout }) {
                                 <li className="nav-item mb-1">
                                     {user == 'admin' ? (
 
-                                        <button className='text-start btn' data-bs-dismiss="offcanvas" onClick={opcion2}>
-                                            Admin. Dashboard
-                                        </button>
+                                            <button className='text-start btn' data-bs-dismiss="offcanvas" onClick={opcion2}>
+                                                Admin. Dashboard
+                                            </button>
+
+
+                                    ) :
+                                        (<div></div>)
+                                    }
+                                </li>
+                                <li className="nav-item mb-1">
+                                    {user == 'admin' ? (
+
+                                            <button className='text-start btn' data-bs-dismiss="offcanvas" onClick={opcion3}>
+                                                Agregar Preguntas
+                                            </button>
 
                                     ) :
                                         (<div></div>)

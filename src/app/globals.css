@@ -6,6 +6,6 @@
 html,
 body {
   
-  overflow: visible;
+  overflow:scroll;
   background: white;
 }

@@ -1,0 +1,110 @@
+.cont {
+    height: 100%;
+    width: 100vw;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background: white;
+}
+
+
+.title {
+    font-size: 1.4rem;
+
+}
+
+.subtitle {
+    font-size: 1.3rem;
+
+}
+
+.text {
+    font-size: 1.2rem;
+}
+
+.select {
+    width: 80%  ;
+}
+
+.tables {
+    border-style: solid;
+}
+
+.textos {
+font-size: 1.2rem;
+}
+
+.c2 {
+    background-color: rgb(228, 227, 227);
+}
+
+.box {
+    width: 100%;
+}
+
+.inputs {
+    font-size: 3.5vw;
+}
+
+/* LG Screen */
+@media (min-width: 1121px) {   
+    .inputs {
+        font-size: 1vw;
+    }
+    
+    .title {
+        margin-top: 1.5rem;
+        font-size: 1.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1.5rem;
+    }
+    
+    .text {
+        font-size: 1.3rem;
+    }
+    
+    .select {
+        justify-content: center;
+        width: 40%  ;
+    }
+
+    .box {
+        width: 80%;
+    }
+    .textos {
+        font-size: 1.3rem;
+    }
+}
+
+/* Tablet and Smaller Desktop */
+@media (min-width: 701px) and (max-width: 1120px) {
+    
+    .title {
+        font-size: 1.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1.5rem;
+    }
+    
+    .text {
+        font-size: 1.3rem;
+    }
+    
+    .select {
+        width: 80%  ;
+    }
+
+    .box {
+        width: 85%;
+    }
+    .textos {
+        font-size: 1.3rem;
+    }
+
+    .inputs {
+        font-size: 1.5vw;
+    }
+}

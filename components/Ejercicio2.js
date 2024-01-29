@@ -104,7 +104,7 @@ export default function Ejercicio2({ action, action2 }) {
         </div>
         <div className={cls('text-start')}>
           
-          <ul class="list-group list-group-numbered justify-content-center">
+          <ul className="list-group list-group-numbered justify-content-center">
 
 
 
@@ -126,7 +126,7 @@ export default function Ejercicio2({ action, action2 }) {
 
             return (
              
-              <li class="list-group-item ps-2 py-4" key={k}>
+              <li className="list-group-item ps-2 py-4" key={k}>
                 <input className="form-check-input" defaultChecked={check} onChange={toggleAction} type="checkbox" value={v.dolencia} id="flexCheckDefault" />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                   { v.dolencia }

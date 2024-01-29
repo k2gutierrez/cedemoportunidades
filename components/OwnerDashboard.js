@@ -38,10 +38,12 @@ export default function OwnerDashboard() {
     let [proy, setProy] = useState('')
     let [cond, setCond] = useState('')
     let [dur, setDur] = useState('')
+    const [dol, setDol] = useState([])
 
     async function getList() {
         let arr1 = []
         let arr2 = []
+        let array3 = []
         const dbRef = ref(db)
 
         const usuario = await get(child(dbRef, idUser))
@@ -77,6 +79,14 @@ export default function OwnerDashboard() {
         }
 
 
+        const getPreg = await get(child(dbRef, '/dolencias'))
+        if (getPreg.exists()) {
+            for (let x in getPreg.val()) {
+                array3.push(getPreg.val()[x])
+            }
+            setDol(array3)
+        }
+
         const getDolenciasS = await get(child(dbRef, idUser + '/dolencias/Seleccion'))
         if (getDolenciasS.exists()) {
             for (let x in getDolenciasS.val()) {
@@ -85,11 +95,17 @@ export default function OwnerDashboard() {
             setListS(arr2)
         }
 
+        
+
     }
 
     async function getUsers() {
         let newArray = []
+        let array2 = []
         const dbRef = ref(db)
+
+        
+
         const getUser = await get(child(dbRef, '/'))
         if (getUser.exists()) {
             for (let x in getUser.val()) {
@@ -139,7 +155,6 @@ export default function OwnerDashboard() {
 
     }, [idUser])
 
-    //
 
     return (
         <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
@@ -347,14 +362,19 @@ export default function OwnerDashboard() {
 
                                             <p><span className='text-dark'>Lastre: </span>{v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre}</p>
                                         </div>
-                                        <div className={cls(styles.c2, "card-body text-primary")}>
-                                            <p className="card-text"><span className='text-dark'>Preguntas Poderosas: </span>{''}</p>
-
-                                        </div>
                                     </div>
                                 )
                             })}
                             {listS.filter((word) => word.causaDeCausas == true).map((v, k) => {
+                                let arr = []
+                                if (v.preguntas == undefined) {
+                                    for (let x in dol[v.key].preguntas) {
+                                        arr.push(dol[v.key].preguntas[x])
+                                    }
+                                } else if (v.preguntas != undefined) {
+                                    arr = v.preguntas
+                                }
+                                
                                 return (
                                     <div key={k} className={cls(styles.card, "card border-secondary mb-3 text-start")} >
                                         <div className="card-header"><b>{v.dolencia}</b></div>
@@ -371,10 +391,27 @@ export default function OwnerDashboard() {
 
                                             <p><span className='text-dark'>Lastre: </span>{v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre}</p>
                                         </div>
-                                        <div className={cls(styles.c2, "card-body text-primary")}>
-                                            <p className="card-text"><span className='text-dark'>Preguntas poderosas: </span>{''}</p>
+                                        
+                                            
+                                            <table className={cls(styles.tables, "table table-striped")}>
+                                            <p className="card-text"><span className='text-dark'>Preguntas poderosas: </span></p>
+                                                <tbody>
+                                                    { 
+                                                        arr.map((a, b) => {
+                                                            return (
+                                                                <tr>
+                                                                    <td scope="row" key={b}>
+                                                                        <p>{ a }</p>
 
-                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            )
+                                                        })
+                                                    }
+                                                </tbody>
+                                            </table>
+
+                                        
 
                                     </div>
                                 )

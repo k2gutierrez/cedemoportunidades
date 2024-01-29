@@ -71,6 +71,7 @@ export default function Resumen({ action1 }) {
   }, [])
 
   const createPDF = async () => {
+    
     /*const pdf = new jsPDF('p','mm',[297, 210]);*/
     const pdf = new jsPDF("portrait", "mm", "letter");
     const data = document.getElementById('pdf');

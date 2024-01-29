@@ -7,22 +7,19 @@
     background: white;
 }
 
-.main {
-    width: 80vw;
-}
 
 .title {
-    font-size: 5.5vw;
-    font-weight: 300;
+    font-size: 1.4rem;
+
 }
 
 .subtitle {
-    font-size: 3.8vw;
-    font-weight: 300;
+    font-size: 1.3rem;
+
 }
 
 .text {
-    font-size: 3.5vw;
+    font-size: 1.2rem;
 }
 
 .select {
@@ -33,25 +30,33 @@
     border-style: solid;
 }
 
+.textos {
+font-size: 1.2rem;
+}
+
+.c2 {
+    background-color: rgb(228, 227, 227);
+}
+
+.box {
+    width: 100%;
+}
+
 /* LG Screen */
 @media (min-width: 1121px) {   
-    .main {
-        width: 80vw;
-    }
+
     
     .title {
         margin-top: 1.5rem;
-        font-size: 3vw;
-        font-weight: 300;
+        font-size: 1.5rem;
     }
     
     .subtitle {
-        font-size: 3.2vw;
-        font-weight: 300;
+        font-size: 1.5rem;
     }
     
     .text {
-        font-size: 3vw;
+        font-size: 1.3rem;
     }
     
     .select {
@@ -60,29 +65,26 @@
     }
 
     .box {
-        width: 60%;
+        width: 80%;
     }
-
+    .textos {
+        font-size: 1.3rem;
+    }
 }
 
 /* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
-    .main {
-        width: 80vw;
-    }
     
     .title {
-        font-size: 4vw;
-        font-weight: 300;
+        font-size: 1.5rem;
     }
     
     .subtitle {
-        font-size: 3.2vw;
-        font-weight: 300;
+        font-size: 1.5rem;
     }
     
     .text {
-        font-size: 3vw;
+        font-size: 1.3rem;
     }
     
     .select {
@@ -90,7 +92,9 @@
     }
 
     .box {
-        width: 60%;
+        width: 85%;
     }
-    
+    .textos {
+        font-size: 1.3rem;
+    }
 }

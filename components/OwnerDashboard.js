@@ -6,24 +6,25 @@ import cls from 'classnames'
 import localFont from 'next/font/local'
 import { db } from '../firebase/firebase'
 import { ref, child, get, set, update } from "firebase/database";
-import jsPDF from 'jspdf'
-import html2canvas from 'html2canvas'
+import logo from '../public/assets/cedemLogo.png'
+import Image from 'next/image'
+import { Span } from 'next/dist/trace'
 
-const MichromaReg = localFont({ 
+const MichromaReg = localFont({
     src: '../public/fonts/Michroma-Regular.ttf'
-  } )
-  
-  const MontserratLight = localFont({
+})
+
+const MontserratLight = localFont({
     src: '../public/fonts/Montserrat-Light.ttf'
-  })
-  
-  const MontserratExtraBold = localFont({
+})
+
+const MontserratExtraBold = localFont({
     src: '../public/fonts/Montserrat-ExtraBold.ttf'
-  })
-  
-  const MontserratSemiBold = localFont({
+})
+
+const MontserratSemiBold = localFont({
     src: '../public/fonts/Montserrat-SemiBold.ttf'
-  })
+})
 
 export default function OwnerDashboard() {
 
@@ -32,40 +33,61 @@ export default function OwnerDashboard() {
     const [listP, setListP] = useState([])
     const [idUser, setId] = useState('')
     const [users, setUsers] = useState([])
-    const [usuario, setUsuario] =useState({})
-    let currentDate = new Date().toJSON().slice (0, 10)
+    const [usuario, setUsuario] = useState({})
+    let currentDate = new Date().toJSON().slice(0, 10)
+    let [proy, setProy] = useState('')
+    let [cond, setCond] = useState('')
+    let [dur, setDur] = useState('')
 
-    async function getList () {
+    async function getList() {
         let arr1 = []
         let arr2 = []
         const dbRef = ref(db)
 
         const usuario = await get(child(dbRef, idUser))
         if (usuario.exists()) {
-            
+
             setUsuario(usuario.val())
+        }
+
+        const getProy = await get(child(dbRef, idUser + '/dolencias/proyecto'))
+        if (getProy.exists()) {
+            
+            setProy(getProy.val())
+        }
+
+        const getCond = await get(child(dbRef, idUser + '/dolencias/condicion_economica'))
+        if (getCond.exists()) {
+            
+            setCond(getCond.val())
+        }
+
+        const getDur = await get(child(dbRef, idUser + '/dolencias/duracion'))
+        if (getDur.exists()) {
+            
+            setCond(getDur.val())
         }
 
         const getDolenciasP = await get(child(dbRef, idUser + '/dolencias/listaP'))
         if (getDolenciasP.exists()) {
-            for (let x in getDolenciasP.val()){
+            for (let x in getDolenciasP.val()) {
                 arr1.push(getDolenciasP.val()[x])
             }
             setListP(arr1)
         }
-        
-    
+
+
         const getDolenciasS = await get(child(dbRef, idUser + '/dolencias/Seleccion'))
         if (getDolenciasS.exists()) {
-            for (let x in getDolenciasS.val()){
+            for (let x in getDolenciasS.val()) {
                 arr2.push(getDolenciasS.val()[x])
             }
             setListS(arr2)
         }
-        
+
     }
 
-    async function getUsers () {
+    async function getUsers() {
         let newArray = []
         const dbRef = ref(db)
         const getUser = await get(child(dbRef, '/'))
@@ -84,27 +106,40 @@ export default function OwnerDashboard() {
         getUsers()
     }
 
+    async function addProyecto (e) {
+        let value = e.target.value
+        const adding = await update(ref(db, idUser + '/dolencias/'), {
+          proyecto: value
+        })
+        setProy(value)
+    }
+
+    async function addCond (e) {
+        let value = e.target.value
+        const adding = await update(ref(db, idUser + '/dolencias/'), {
+            condicion_economica: value
+        })
+        setCond(value)
+    }
+
+    async function addDur (e) {
+        let value = e.target.value
+        const adding = await update(ref(db, idUser + '/dolencias/'), {
+            duracion: value
+        })
+        setDur(value)
+    }
+
     useEffect(() => {
-        if (idUser != ''){
+        if (idUser != '') {
             getList()
         }
-        
+
         getUsers()
 
     }, [idUser])
 
-    const createPDF = async () => {
-        /*const pdf = new jsPDF('p','mm',[297, 210]);*/
-        const pdf = new jsPDF("portrait", "mm", "letter");
-        const data = document.getElementById('pdf');
-        const d = await html2canvas(data);
-        const img = d.toDataURL("image/png");
-        const imgProperties = pdf.getImageProperties(img);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
-        await pdf.addImage(img, "PNG", 0, 0, pdfWidth, pdfHeight);
-        await pdf.save(`${usuario.NAME}_Oportunidades_de_Crecimiento_${currentDate}.pdf`);
-      };
+    //
 
     return (
         <div className={cls(MontserratSemiBold.className, styles.cont, 'p-3')}>
@@ -112,7 +147,8 @@ export default function OwnerDashboard() {
             <div className='row justify-content-center align-items-center'>
                 <div className={cls(styles.box, 'row justify-content-center align-items-center')}>
                     <div className={cls(styles.main, styles.text, '')}>
-                        <p className={cls(styles.title, MontserratExtraBold.className)}>Oportunidades y Problemas de Crecimiento</p>
+                        <Image src={logo} alt='CEDEM' width={350} height={150} />
+                        <p className={cls(styles.title, MontserratExtraBold.className)}>Problemas y Oportunidades de Crecimiento</p>
                     </div>
                     <div className={cls(styles.subtitle, styles.select, 'mb-3')}>
                         <select className="form-select" onChange={(e) => setId(e.target.value)} aria-label="Default select example">
@@ -134,15 +170,20 @@ export default function OwnerDashboard() {
                         )
                     }
 
-                    <div id='pdf'>
-                        <p className={cls(MontserratExtraBold.className, 'my-3')}>{usuario.NAME == null ? '' : usuario.NAME}</p>
-                        <div className='text-start mb-3'>
+                    <div className={cls(styles.textos)} id='pdf'>
+                        <div className='row'>
+                            <div className='col-sm-6 col-12 text-start'>
+                                <p className={cls(MontserratExtraBold.className, 'my-sm-3')}>NOMBRE: <span className={MontserratSemiBold.className}>{usuario.NAME == null || usuario.NAME == undefined ? '' : usuario.NAME}</span></p>
+                            </div>
+                            <div className='col-sm-6 col-12 text-sm-end text-start'>
+                                <p className={cls(MontserratExtraBold.className, 'my-sm-3')}>FECHA: <span className={MontserratSemiBold.className}>{currentDate}</span></p>
+                            </div>
+                        </div>
+
+                        <div className='text-start my-5'>
+                            <p className={cls(MontserratExtraBold.className, '')}>PROBLEMAS Y OPORTUNIDADES – EJERCICIO INICIAL</p>
                             <table className={cls(styles.tables, "table table-striped")}>
-                                <thead>
-                                    <tr>
-                                        <th scope="col" className={MontserratExtraBold.className}>Problemas y oportunidades personales</th>
-                                    </tr>
-                                </thead>
+
                                 <tbody>
 
                                     {listP.map((v, k) => {
@@ -162,13 +203,10 @@ export default function OwnerDashboard() {
                             </table>
                         </div>
 
-                        <div className='text-start mb-3'>
+                        <div className='text-start my-5'>
+                            <p className={cls(MontserratExtraBold.className, '')}>SELECCIÓN CUESTIONARIO PROBLEMAS Y OPORTUNIDADES</p>
                             <table className={cls(styles.tables, "table table-striped")}>
-                                <thead>
-                                    <tr>
-                                        <th scope="col" className={MontserratExtraBold.className}>Problemas y oportunidades seleccionados</th>
-                                    </tr>
-                                </thead>
+
                                 <tbody>
                                     {listS.filter((word) => word.check == true).map((v, k) => {
 
@@ -188,13 +226,10 @@ export default function OwnerDashboard() {
                         </div>
 
 
-                        <div className='text-start mb-3'>
+                        <div className='text-start my-5'>
+                            <p className={cls(MontserratExtraBold.className, '')}>PROBLEMAS CAUSA</p>
                             <table className={cls(styles.tables, "table table-striped")}>
-                                <thead>
-                                    <tr>
-                                        <th scope="col" className={MontserratExtraBold.className}>Causas</th>
-                                    </tr>
-                                </thead>
+
                                 <tbody>
 
                                     {listP.filter((word) => word.categoria == "C").map((v, k) => {
@@ -202,9 +237,8 @@ export default function OwnerDashboard() {
                                         return (
                                             <tr>
                                                 <td scope="row" key={k}>
-                                                    <p>Dolencia: {v.dolencia}</p>
-                                                    <p>Dimensión: {v.dimension == undefined || v.dimension == null ? 'Causa personal' : v.dimension}</p>
-                                                    <p>Lastre: {v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre}</p>
+                                                    <p>{v.dolencia}</p>
+
                                                 </td>
                                             </tr>
 
@@ -215,9 +249,8 @@ export default function OwnerDashboard() {
                                         return (
                                             <tr>
                                                 <td key={k} >
-                                                    <p>Dolencia: {v.dolencia}</p>
-                                                    <p>Dimensión: {v.dimension == undefined || v.dimension == null ? 'Causa personal' : v.dimension}</p>
-                                                    <p>Lastre: {v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre}</p>
+                                                    <p>{v.dolencia}</p>
+
                                                 </td>
                                             </tr>
 
@@ -228,13 +261,10 @@ export default function OwnerDashboard() {
 
                         </div>
 
-                        <div className='text-start mb-3'>
+                        <div className='text-start my-5'>
+                            <p className={cls(MontserratExtraBold.className, '')}>PROBLEMAS EFECTO</p>
                             <table className={cls(styles.tables, "table table-striped")}>
-                                <thead>
-                                    <tr>
-                                        <th scope="col" className={MontserratExtraBold.className}>Efectos</th>
-                                    </tr>
-                                </thead>
+
                                 <tbody>
 
                                     {listP.filter((word) => word.categoria == "E").map((v, k) => {
@@ -242,9 +272,7 @@ export default function OwnerDashboard() {
                                         return (
                                             <tr>
                                                 <td key={k} >
-                                                    <p>Dolencia: {v.dolencia}</p>
-                                                    <p>Dimensión: {v.dimension == undefined || v.dimension == null ? 'Efecto personal' : v.dimension}</p>
-                                                    <p>Lastre: {v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre}</p>
+                                                    <p>{v.dolencia}</p>
                                                 </td>
                                             </tr>
 
@@ -255,9 +283,7 @@ export default function OwnerDashboard() {
                                         return (
                                             <tr>
                                                 <td key={k} className="list-group-item text-start">
-                                                    <p>Dolencia: {v.dolencia}</p>
-                                                    <p>Dimensión: {v.dimension == undefined || v.dimension == null ? 'Efecto personal' : v.dimension}</p>
-                                                    <p>Lastre: {v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre}</p>
+                                                    <p>{v.dolencia}</p>
                                                 </td>
                                             </tr>
 
@@ -268,13 +294,10 @@ export default function OwnerDashboard() {
 
                         </div>
 
-                        <div className='text-start mb-3'>
+                        <div className='text-start my-4'>
+                            <p className={cls(MontserratExtraBold.className, '')}>NO PROBLEMA</p>
                             <table className={cls(styles.tables, "table table-striped")}>
-                                <thead>
-                                    <tr>
-                                        <th scope="col" className={MontserratExtraBold.className}>No Problemas</th>
-                                    </tr>
-                                </thead>
+
                                 <tbody>
 
                                     {listP.filter((word) => word.categoria == "N").map((v, k) => {
@@ -282,9 +305,8 @@ export default function OwnerDashboard() {
                                         return (
                                             <tr>
                                                 <td key={k} >
-                                                    <p>Dolencia: {v.dolencia}</p>
-                                                    <p>Dimensión: {v.dimension == undefined || v.dimension == null ? 'NP personal' : v.dimension}</p>
-                                                    <p>Lastre: {v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre}</p>
+                                                    <p>{v.dolencia}</p>
+
                                                 </td>
                                             </tr>
 
@@ -295,9 +317,8 @@ export default function OwnerDashboard() {
                                         return (
                                             <tr>
                                                 <td key={k} >
-                                                    <p>Dolencia: {v.dolencia}</p>
-                                                    <p>Dimensión: {v.dimension == undefined || v.dimension == null ? 'NP personal' : v.dimension}</p>
-                                                    <p>Lastre: {v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre}</p>
+                                                    <p>{v.dolencia}</p>
+
                                                 </td>
                                             </tr>
 
@@ -307,40 +328,114 @@ export default function OwnerDashboard() {
                             </table>
                         </div>
 
-                        <div>
-                            <p className={MontserratExtraBold.className}>Causas de Causas</p>
+                        <div className='text-start my-5'>
+                            <p className={cls(MontserratExtraBold.className, '')}>PROBLEMAS CAUSA MÁS RELEVANTES</p>
                             {listP.filter((word) => word.causaDeCausas == true).map((v, k) => {
                                 return (
-                                    <div key={k} className={cls(styles.card, "card border-primary mb-3 text-start")} >
-                                        <div className="card-header">{v.dolencia}</div>
-                                        <div className="card-body text-primary">
-                                            <p className="card-text">{'Descripción: ' + v.descripcion}</p>
-                                            <p>Dimensión: {v.dimension == undefined || v.dimension == null ? 'Causa personal' : v.dimension}</p>
-                                            <p>Lastre: {v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre}</p>
+                                    <div key={k} className={cls(styles.card, "card border-secondary mb-3 text-start")} >
+                                        <div className="card-header bg-light"><b>{v.dolencia}</b></div>
+                                        <div className={cls(styles.c1, "card-body text-primary")}>
+                                            <p className="card-text"><span className='text-dark'>Descripción: </span>{v.descripcion}</p>
+
+                                        </div>
+                                        <div className={cls(styles.c2, "card-body text-primary")}>
+
+                                            <p><span className='text-dark'>Dimensión: </span>{v.dimension == undefined || v.dimension == null ? 'Causa personal' : v.dimension}</p>
+
+                                        </div>
+                                        <div className={cls(styles.c1, "card-body text-primary")}>
+
+                                            <p><span className='text-dark'>Lastre: </span>{v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre}</p>
+                                        </div>
+                                        <div className={cls(styles.c2, "card-body text-primary")}>
+                                            <p className="card-text"><span className='text-dark'>Preguntas Poderosas: </span>{''}</p>
+
                                         </div>
                                     </div>
                                 )
                             })}
                             {listS.filter((word) => word.causaDeCausas == true).map((v, k) => {
                                 return (
-                                    <div key={k} className={cls(styles.card, "card border-primary mb-3 text-start")} >
-                                        <div className="card-header">{v.dolencia}</div>
-                                        <div className="card-body text-primary">
-                                            <p className="card-text">{'Descripción' + v.descripcion}</p>
-                                            <p>Dimensión: {v.dimension == undefined || v.dimension == null ? 'Causa personal' : v.dimension}</p>
-                                            <p>Lastre: {v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre}</p>
+                                    <div key={k} className={cls(styles.card, "card border-secondary mb-3 text-start")} >
+                                        <div className="card-header"><b>{v.dolencia}</b></div>
+                                        <div className={cls(styles.c1, "card-body text-primary")}>
+                                            <p className="card-text"><span className='text-dark'>Descripción: </span>{v.descripcion}</p>
+
                                         </div>
+                                        <div className={cls(styles.c2, "card-body text-primary")}>
+
+                                            <p><span className='text-dark'>Dimensión: </span>{v.dimension == undefined || v.dimension == null ? 'Causa personal' : v.dimension}</p>
+
+                                        </div>
+                                        <div className={cls(styles.c1, "card-body text-primary")}>
+
+                                            <p><span className='text-dark'>Lastre: </span>{v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre}</p>
+                                        </div>
+                                        <div className={cls(styles.c2, "card-body text-primary")}>
+                                            <p className="card-text"><span className='text-dark'>Preguntas poderosas: </span>{''}</p>
+
+                                        </div>
+
                                     </div>
                                 )
                             })}
                         </div>
 
                     </div>
+                    <div className={cls(styles.textos, 'my-5')} id='pdf'>
+                        <Image src={logo} alt='CEDEM' width={350} height={150} />
+                        <div className='row justify-content-center align-items-center'>
+                            
+                            <p className={cls(styles.title, MontserratExtraBold.className)}>PROPUESTA <br />CONSULTORÍA EN DUEÑEZ Y CRECIMIENTO DE VALOR</p>
+                            
+                            <p className='mt-5'><b>PROYECTO:</b></p>
+                            <div className={styles.select}>
+                                <select className={cls("form-select")} onChange={addProyecto} aria-label="Default select example">
+                                    <option value='' >Selecciona el proyecto</option>
+                                    <option value='Fortalecimiento Competitivo'>1. Fortalecimiento Competitivo</option>
+                                    <option value='Sinergia Organizacional'>2. Sinergia Organizacional</option>
+                                    <option value='Rediseño de Fórmula de Negocio'>3. Rediseño de Fórmula de Negocio</option>
+                                    <option value='Rediseño de Fórmula de Gobierno'>4. Rediseño de Fórmula de Gobierno</option>
+                                    <option value='Alineación de Querencias'>5. Alineación de Querencias</option>
+                                    <option value='Formación en Dueñez'>6. Formación en Dueñez</option>
+                                </select>
+                                <p className='text-start'>Proyecto: { proy }</p>
+
+                            </div>
+
+                            <p className='mt-5'><b>CONDICIONES ECONÓMICAS:</b></p>
+                            <div className={styles.select}>
+                                <select className={cls("form-select")} onChange={addCond} aria-label="Default select example">
+                                    <option value='' >Selecciona la condición económica</option>
+                                    <option value='USD$ 5,000 mensuales'>1. USD$ 5,000 mensuales</option>
+                                    <option value='USD$ 5,500 mensuales'>2. USD$ 5,500 mensuales</option>
+                                    <option value='USD$ 6,000 mensuales'>3. USD$ 6,000 mensuales</option>
+                                    <option value='USD$ 6,500 mensuales'>4. USD$ 6,500 mensuales</option>
+                                    <option value='USD$ 7,000 mensuales'>5. USD$ 7,000 mensuales</option>
+                                    <option value='USD$ 7,500 mensuales'>6. USD$ 7,500 mensuales</option>
+                                    <option value='USD$ 8,000 mensuales'>7. USD$ 8,000 mensuales</option>
+                                </select>
+                                <p className='text-start'>Condiciones económicas: { cond }</p>
+                            </div>
+
+                            <p className='mt-5'><b>DURACIÓN:</b></p>
+                            <div className={styles.select}>
+                                <select className={cls("form-select")} onChange={addDur} aria-label="Default select example">
+                                    <option value='' >Selecciona la duración</option>
+                                    <option value='12 Meses'>1. 12 Meses</option>
+                                    <option value='15 Meses'>2. 15 Meses</option>
+                                    <option value='18 Meses'>3. 18 Meses</option>
+                                    <option value='24 Meses'>4. 24 Meses</option>
+                                </select>
+                                <p className='text-start'>Duración: { dur }</p>
+                            </div>
+                            
+                            
+                        </div>
+
+                    </div>
 
                 </div>
-            </div>
-            <div className={cls('my-3 justify-content-center px-2')}>
-                <button type="button" onClick={createPDF} className="btn btn-info" >Imprimir PDF</button>
             </div>
         </div>
     )

@@ -46,7 +46,7 @@ export default function Home() {
   }, [currentUser])
 
   return (
-    <React.Fragment>
+    <div>
       {currentUser &&<Navbar2 opcion1={() => setMenu(0)} user={data.NIVEL} opcion2={() => setMenu('owner')} Logout={logingOut} />}
       {!currentUser &&<Login />}
       {currentUser && menu == 'owner' &&<OwnerDashboard action={() => setMenu(1)} />}
@@ -58,6 +58,6 @@ export default function Home() {
       {currentUser && menu == 5 && <Ejercicio5 action={() => setMenu(4)} action2={() => setMenu(6)}/>}
       {currentUser && menu == 6 && <Ejercicio6 action={() => setMenu(5)} action2={() => setMenu(7)}/>}
       {currentUser && menu == 7 && <Resumen action1={() => setMenu(0)}  />}
-    </React.Fragment>
+    </div>
   )
 }

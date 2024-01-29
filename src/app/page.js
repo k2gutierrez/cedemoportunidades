@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from './page.module.css'
 import Login from '../../components/Login'
 import { useAuth } from '../../context/authContext'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbars from '../../components/Navbar'
 import Navbar2 from '../../components/Navbar2'
 import Dashboard from '../../components/Dashboard'
@@ -22,7 +22,7 @@ export default function Home() {
 
   const [menu, setMenu] = useState(0)
   const [data, setData] = useState({})
-  const { currentUser } = useAuth()
+  const { logout, currentUser } = useAuth()
 
   async function getList () {
     const dbRef = ref(db)
@@ -30,6 +30,11 @@ export default function Home() {
     if (getDolenciasP.exists()) {
       setData(getDolenciasP.val())
     }
+  }
+
+  const logingOut = async () => {
+    logout()
+    setMenu(0)
   }
 
   useEffect(() => {
@@ -41,8 +46,8 @@ export default function Home() {
   }, [currentUser])
 
   return (
-    <main className={styles.main}>
-      {currentUser &&<Navbar2 opcion1={() => setMenu(0)} user={data.NIVEL} opcion2={() => setMenu('owner')} />}
+    <React.Fragment>
+      {currentUser &&<Navbar2 opcion1={() => setMenu(0)} user={data.NIVEL} opcion2={() => setMenu('owner')} Logout={logingOut} />}
       {!currentUser &&<Login />}
       {currentUser && menu == 'owner' &&<OwnerDashboard action={() => setMenu(1)} />}
       {currentUser && menu == 0 &&<Dashboard action={() => setMenu(1)} />}
@@ -53,6 +58,6 @@ export default function Home() {
       {currentUser && menu == 5 && <Ejercicio5 action={() => setMenu(4)} action2={() => setMenu(6)}/>}
       {currentUser && menu == 6 && <Ejercicio6 action={() => setMenu(5)} action2={() => setMenu(7)}/>}
       {currentUser && menu == 7 && <Resumen action1={() => setMenu(0)}  />}
-    </main>
+    </React.Fragment>
   )
 }

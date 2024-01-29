@@ -5,6 +5,7 @@
     text-align: center;
     justify-content: center;
     background: white;
+    overflow: visible;
 }
 
 .main {

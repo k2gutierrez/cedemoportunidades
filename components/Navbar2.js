@@ -5,7 +5,7 @@ import logo from '../public/assets/cedemLogo.png'
 import cls from 'classnames'
 import { useAuth } from '../context/authContext'
 
-export default function Navbar2({ opcion1, user, opcion2 }) {
+export default function Navbar2({ opcion1, user, opcion2, Logout }) {
 
     const { logout, currentUser } = useAuth()
 
@@ -24,7 +24,7 @@ export default function Navbar2({ opcion1, user, opcion2 }) {
                     <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                         <div className="offcanvas-header">
                             <h5 className="offcanvas-title" id="offcanvasNavbarLabel"><Image src={logo} className={cls('img-fluid')} alt='Consultoría de Dueños' width={100} height={50} /></h5>
                             <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -49,7 +49,7 @@ export default function Navbar2({ opcion1, user, opcion2 }) {
                                     }
                                 </li>
                                 <li className="nav-item mb-1">
-                                    <button className='text-start btn' onClick={logout}>
+                                    <button className='text-start btn' onClick={Logout}>
                                         Log Out
                                     </button>
                                 </li>

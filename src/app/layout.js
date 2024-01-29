@@ -1,7 +1,7 @@
 'use client'
 import "bootstrap/dist/css/bootstrap.min.css"
-import ImportBootstrap from '../../components/ImportBootstrap'
 import './globals.css'
+import ImportBootstrap from '../../components/ImportBootstrap'
 import { AuthProvider } from '../../context/authContext'
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -14,9 +14,10 @@ const metadata = {
 }
 
 export default function RootLayout({ children }) {
+
   return (
     <html lang="en">
-      <body>
+      <body style={{overflow: "visible"}}>
         <ImportBootstrap /> 
         <AuthProvider>
           {children}

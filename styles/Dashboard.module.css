@@ -13,38 +13,38 @@
 }
 
 .title {
-    font-size: 5.5vw;
+    font-size: 1.5rem;
     font-weight: 300;
 }
 
 .subtitle {
-    font-size: 5.4vw;
-    font-weight: 300;
+    font-size: 1.4rem;
+    font-weight: 200;
 }
 
 .text {
-    font-size: 3.5vw;
+    font-size: 1.3rem;
 }
 
 
 /* LG Screen */
 @media (min-width: 1121px) {   
     .main {
-        width: 60%;
+        width: 80%;
     }
     
     .title {
-        font-size: 3vw;
+        font-size: 2.5rem;
         font-weight: 300;
     }
     
     .subtitle {
-        font-size: 2.5vw;
-        font-weight: 300;
+        font-size: 2.3rem;
+        font-weight: 200;
     }
     
     .text {
-        font-size: 2vw;
+        font-size: 2rem;
     }
 
 }
@@ -56,17 +56,17 @@
     }
     
     .title {
-        font-size: 4vw;
+        font-size: 1.8rem;
         font-weight: 300;
     }
     
     .subtitle {
-        font-size: 3.5vw;
-        font-weight: 300;
+        font-size: 1.6rem;
+        font-weight: 200;
     }
     
     .text {
-        font-size: 3vw;
+        font-size: 1.5rem;
     }
     
 }

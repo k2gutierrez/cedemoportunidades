@@ -35,20 +35,31 @@ export default function Login() {
 
   async function submitHandler() {
     if (!email || !password){
-      setError('Please enter username and password')
+      setError('Por favor ingresa correo y contraseña')
       return 
     }
 
-    if (isLogIn) {
+    if (isLogIn == true) {
       try {
         await login(email, password)
       } catch (err) {
-        setError("Incorrect email or password")
+        setError("Correo o contraseña incorrecta")
       }
       return
     }
 
-    await signup(email, password, nombre)
+    if (isLogIn == false) {
+
+      if (nombre == "" || nombre.length < 5) {
+        setError("Ingresa tu nombre completo")
+        return
+      }
+
+      await signup(email, password, nombre)
+
+    }
+
+    
 
   }
 

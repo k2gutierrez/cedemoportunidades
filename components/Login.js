@@ -5,7 +5,9 @@ import { useAuth } from '../context/authContext'
 import styles from '../styles/Login.module.css'
 import Image from 'next/image'
 import localFont from 'next/font/local'
-import logo from '../public/assets/cdD.png'
+import logo from '../public/assets/cedemLogo.png'
+import Link from 'next/link'
+import Recover from './Recover'
 
 const MichromaReg = localFont({ 
   src: '../public/fonts/Michroma-Regular.ttf'
@@ -68,10 +70,10 @@ export default function Login() {
         <div className='row justify-content-center'>
           
           <div className={cls(styles.main, styles.text, '')}>
-            <Image src={logo} className={cls(styles.logo, 'img-fluid')}  alt='Consultoría de Dueños' width={300} height={300} />
-            <p className={cls(MontserratExtraBold.className, styles.title)}>
+            <Image src={logo} className={cls(styles.logo, 'img-fluid')}  alt='CEDEM' width={300} height={300} />
+            {/*<p className={cls(MontserratExtraBold.className, styles.title)}>
               Consultoría de Dueños
-            </p>
+            </p>*/}
             <p className={cls(MontserratSemiBold.className, styles.subtitle)}>
               Oportunidades y Problemas de Crecimiento
             </p>
@@ -99,12 +101,15 @@ export default function Login() {
                   <button type="button" onClick={submitHandler} className="btn btn-primary">Submit</button>
                 </div>
                 <p className={cls(styles.ingreso, styles.login, '')} onClick={() => setIsLogIn(!isLogIn)}>{ isLogIn ? 'Register' : 'Ingresar' }</p>
+                <h5 className={cls(styles.ingreso, styles.login, '')}><Recover /></h5>
               </div>
+              
             </div>
             
           </div>
-
+          
         </div>
+        
     </div>
   )
 }

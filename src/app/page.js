@@ -9,6 +9,9 @@ import Navbar2 from '../../components/Navbar2'
 import Dashboard from '../../components/Dashboard'
 import Ejercicio1 from '../../components/Ejercicio1'
 import Ejercicio2 from '../../components/Ejercicio2'
+
+import Ejercicio3a from '../../components/Ejercicio3a'
+
 import Ejercicio3 from '../../components/Ejercicio3'
 import Ejercicio4 from '../../components/Ejercicio4'
 import Ejercicio5 from '../../components/Ejercicio5'
@@ -54,7 +57,10 @@ export default function Home() {
       {currentUser && menu == 'preguntas' &&<Preguntas />}
       {currentUser && menu == 0 &&<Dashboard action={() => setMenu(1)} />}
       {currentUser && menu == 1 && <Ejercicio1 action={() => setMenu(0)} action2={() => setMenu(2)}/>}
-      {currentUser && menu == 2 && <Ejercicio2 action={() => setMenu(1)} action2={() => setMenu(3)}/>}
+      {currentUser && menu == 2 && <Ejercicio2 action={() => setMenu(1)} action2={() => setMenu(3.5)}/>}
+      
+      {currentUser && menu == 3.5 && <Ejercicio3a action={() => setMenu(2)} action2={() => setMenu(3)}/>}
+      
       {currentUser && menu == 3 && <Ejercicio3 action={() => setMenu(2)} action2={() => setMenu(4)}/>}
       {currentUser && menu == 4 && <Ejercicio4 action={() => setMenu(3)} action2={() => setMenu(5)}/>}
       {currentUser && menu == 5 && <Ejercicio5 action={() => setMenu(4)} action2={() => setMenu(6)}/>}

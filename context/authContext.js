@@ -23,7 +23,7 @@ export function AuthProvider ({ children }) {
                 EMAIL: email,
                 ID: id,
                 NAME: name,
-                NIVEL: 'user'
+                NIVEL: '5'
             })
         })
         return

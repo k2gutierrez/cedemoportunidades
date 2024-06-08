@@ -109,11 +109,13 @@ export default function OwnerDashboard() {
         const getUser = await get(child(dbRef, '/'))
         if (getUser.exists()) {
             for (let x in getUser.val()) {
+                
                 newArray.push(getUser.val()[x])
+                
             }
 
         }
-        let users = newArray.filter((word) => word.NIVEL == "user")
+        let users = newArray.filter((word) => word.NIVEL == "5")
         setUsers(users)
     }
 
@@ -168,7 +170,7 @@ export default function OwnerDashboard() {
                     <div className={cls(styles.subtitle, styles.select, 'mb-3')}>
                         <select className="form-select" onChange={(e) => setId(e.target.value)} aria-label="Default select example">
                             <option value={''} >Selecciona al Usuario</option>
-                            {users.filter((word) => word.NIVEL == "user").map((v, k) => {
+                            {users.filter((word) => word.dolencias != undefined).map((v, k) => { {/*filter((word) => word.NIVEL == "user").*/}
                                 return (
                                     <option key={k} value={v.ID}>{v.NAME}</option>
                                 )

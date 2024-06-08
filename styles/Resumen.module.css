@@ -7,15 +7,23 @@
     background: white;
 }
 
+.colorTitle {
+    color: rgb(10, 10, 126);
+}
+
+.colorText {
+    color: black;
+}
+
 
 .title {
-    font-size: 5.5vw;
+    font-size: 8vw;
     font-weight: 300;
 }
 
 .subtitle {
-    font-size: 5vw;
-    font-weight: 300;
+    font-size: 4.2vw;
+    font-weight: 800;
 }
 
 .text {
@@ -45,7 +53,8 @@
 }
 
 .tables {
-    border-style: solid;
+    border-style:solid;
+    border-color: blue;
 }
 
 /* LG Screen */
@@ -56,6 +65,20 @@
         height: auto;
     }
 
+    .title {
+        font-size: 2vw;
+        font-weight: 300;
+    }
+    
+    .subtitle {
+        font-size: 1.2vw;
+        font-weight: 800;
+    }
+    
+    .text {
+        font-size: 1vw;
+    }
+
 }
 
 /* Tablet and Smaller Desktop */
@@ -64,6 +87,20 @@
     .logo {
         width: 30vw;
         height: auto;
+    }
+
+    .title {
+        font-size: 2.8vw;
+        font-weight: 300;
+    }
+    
+    .subtitle {
+        font-size: 2.2vw;
+        font-weight: 800;
+    }
+    
+    .text {
+        font-size: 1.8vw;
     }
     
 }

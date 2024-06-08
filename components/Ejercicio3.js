@@ -28,6 +28,7 @@ export default function Ejercicio3({ action, action2 }) {
 
   const { currentUser } = useAuth()
 
+  const [loader, setLoader] = useState(true)
   let [listSeleccion, setListSeleccion] = useState([])
   let [listP, setListP] = useState([])
   let arr = []
@@ -50,6 +51,7 @@ export default function Ejercicio3({ action, action2 }) {
       }
       setListP(newArray2)
     }
+    setLoader(false)
   }
 
   async function add1(key, val) {
@@ -72,7 +74,13 @@ export default function Ejercicio3({ action, action2 }) {
 
   return (
     <div className={cls(MontserratSemiBold.className, styles.cont, 'pt-3 pb-5')}>
-      <div className='row justify-content-center align-items-center'>
+      { loader ? (
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      
+      ) : (
+        <div className='row justify-content-center align-items-center'>
         <div className={cls(styles.main, '')}>
           <div>
             <p className={cls('text-start')}>
@@ -162,6 +170,8 @@ export default function Ejercicio3({ action, action2 }) {
           </div>
         </div>
       </div>
+      )
+      }
 
       <div className={cls('mt-3 mb-4 d-flex justify-content-center gap-3 px-2')}>
         <button type="button" onClick={action} className="btn btn-info">Regresar</button>

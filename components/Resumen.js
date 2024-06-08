@@ -86,14 +86,14 @@ export default function Resumen({ action1 }) {
 
 
   return (
-    <div className={cls(MontserratSemiBold.className, styles.cont, 'py-3')} >
-      <div className='row ' id='pdf'>
+    <div className={cls(MontserratSemiBold.className, styles.cont, 'container-sm py-3')} >
+      <div className='row' id='pdf'>
         <div className={cls(styles.main, '')}>
           <div>
             <Image src={logo} alt='CEDEM' className={cls(styles.logo, 'img-fluid')} width={150} height={80} />
           </div>
           <div>
-            <p className={cls(MontserratExtraBold.className, 'text-center')}>
+            <p className={cls(MontserratExtraBold.className, styles.title, styles.colorTitle, 'text-center')}>
               Oportunidades y Problemas de Crecimiento
             </p>
           </div>
@@ -101,21 +101,21 @@ export default function Resumen({ action1 }) {
           <div className={cls('mb-4 text-start px-3')}>
             
 
-            <table className={cls(styles.tables, "table table-striped")}>
-            <thead>
-              <tr>
-                <th scope="col">Causas más Relevantes</th>
+            <table className={cls(styles.tables, "table")}>
+            <thead className={cls(styles.subtitle)}>
+              <tr >
+                <th  scope="col">Causas más Relevantes</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className={styles.text}>
 
             {listP.filter((word) => word.causaDeCausas == true).map((v, k) => {
 
               return (
                 <tr>
                   <td scope="row" key={k}>
-                    <p>{'Causa: ' + v.dolencia}</p>
-                    <p>{'Descripción: ' + v.descripcion }</p>
+                    <p className={cls(styles.colorTitle)}>Causa: <span className={cls(styles.colorText)}>{ v.dolencia }</span></p> 
+                    <p>Descripción: <span className={cls(styles.colorText)}>{ v.descripcion }</span></p>
                   </td>
                 </tr>
                 
@@ -130,8 +130,8 @@ export default function Resumen({ action1 }) {
               return (
                 <tr>
                   <td scope="row" key={k}>
-                    <p>{'Causa: ' + v.dolencia}</p>
-                    <p>{'Descripción: ' + v.descripcion }</p>
+                    <p className={cls(styles.colorTitle)}>Causa: <span className={cls(styles.colorText)}>{ v.dolencia }</span></p>
+                    <p className={cls(styles.colorTitle)}>Descripción: <span className={cls(styles.colorText)}>{ v.descripcion }</span></p>
                 </td>
                 </tr>
 
@@ -145,12 +145,12 @@ export default function Resumen({ action1 }) {
           <div className={cls('mb-4 px-3 text-start')}>
             
             <table className={cls(styles.tables, "table table-striped")}>
-            <thead>
+            <thead className={cls(styles.subtitle)}>
               <tr>
                 <th scope="col">Efectos</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody  className={styles.text}>
               {listP.filter((word) => word.categoria == "E").map((v, k) => {
 
                 return (
@@ -180,12 +180,12 @@ export default function Resumen({ action1 }) {
           <div className={cls('mb-4 px-3 text-start')}>
 
             <table className={cls(styles.tables, "table table-striped")}>
-            <thead>
+            <thead className={cls(styles.subtitle)}>
               <tr>
                 <th scope="col">No Problemas</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody  className={styles.text}>
 
               {listP.filter((word) => word.categoria == "N").map((v, k) => {
 

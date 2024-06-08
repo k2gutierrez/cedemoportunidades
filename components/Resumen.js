@@ -115,7 +115,7 @@ export default function Resumen({ action1 }) {
                 <tr>
                   <td scope="row" key={k}>
                     <p className={cls(styles.colorTitle)}>Causa: <span className={cls(styles.colorText)}>{ v.dolencia }</span></p> 
-                    <p>Descripción: <span className={cls(styles.colorText)}>{ v.descripcion }</span></p>
+                    <p className={cls(styles.colorTitle)}>Descripción: <span className={cls(styles.colorText)}>{ v.descripcion }</span></p>
                   </td>
                 </tr>
                 

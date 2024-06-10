@@ -83,13 +83,13 @@ export default function Ejercicio3({ action, action2 }) {
         <div className='row justify-content-center align-items-center'>
         <div className={cls(styles.main, '')}>
           <div>
-            <p className={cls('text-start')}>
+            <p className={cls(styles.text, 'text-start')}>
               Analiza cada opción por separado sin relacionarlas con las demás. Elige si la opción
               es una Causa (C), Efecto (E) o No Problema (N).
             </p>
           </div>
           <div className={cls('row')}>
-            <ul class="list-group">
+            <ul className="list-group">
               {listP.map((v, k) => {
 
                 const getSelection1 = async (e) => {
@@ -101,7 +101,7 @@ export default function Ejercicio3({ action, action2 }) {
                 }
 
                 return (
-                  <li class="list-group-item py-3 px-2" key={k}>
+                  <li className={cls(styles.subtext, "list-group-item py-3 px-2")} key={k}>
                     <p>{v.dolencia}</p>
                     <div className="form-check form-check-inline">
                       <input className="form-check-input" onChange={getSelection1} type="radio" defaultChecked={v.categoria != 'C' ? false : true} name={k} id="inlineRadio1" value="C" />
@@ -125,10 +125,10 @@ export default function Ejercicio3({ action, action2 }) {
           </div>
           <div className={cls('row')}>
 
-            <ul class="list-group">
+            <ul className="list-group">
 
 
-              {listSeleccion.map((v) => {
+              {listSeleccion.map((v, k) => {
 
                 let llave = v.key + 's'
 
@@ -144,7 +144,7 @@ export default function Ejercicio3({ action, action2 }) {
                   <>
                     {v.check == true ?
                       (
-                        <li class="list-group-item py-3 px-2" key={llave}>
+                        <li className={cls(styles.subtext, "list-group-item py-3 px-2")} key={llave}>
                           <p>{v.dolencia}</p>
                           <div className="form-check form-check-inline">
                             <input className="form-check-input" onChange={getSelection2} type="radio" defaultChecked={v.categoria != 'C' ? false : true} name={llave} id="inlineRadio1" value="C" />

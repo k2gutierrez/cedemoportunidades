@@ -91,7 +91,7 @@ export default function Ejercicio6({ action, action2 }) {
             </div>
 
             <div className={cls('my-3 text-start')}>
-              <ul class="list-group">
+              <ul className="list-group">
 
                 {listP.map((v, k) => {
 
@@ -106,7 +106,7 @@ export default function Ejercicio6({ action, action2 }) {
 
                       {v.causaDeCausas == true &&
                         (
-                          <li class="list-group-item" key={k}>
+                          <li className="list-group-item" key={k}>
                             <div className={cls(styles.list, "")}>
                               <div className="py-1">
                                 <p>{v.dolencia}</p>
@@ -122,7 +122,7 @@ export default function Ejercicio6({ action, action2 }) {
                   )
                 })}
               </ul>
-              <ul class="list-group">
+              <ul className="list-group">
                 {listS.map((v) => {
 
                   const ans2 = async (e) => {
@@ -136,7 +136,7 @@ export default function Ejercicio6({ action, action2 }) {
 
                       {v.causaDeCausas == true &&
                         (
-                          <li class="list-group-item" key={v.key}>
+                          <li className="list-group-item" key={v.key}>
                             <div className={cls(styles.list, "")}>
                               <div className="py-1">
                                 <p>{v.dolencia}</p>

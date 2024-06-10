@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Image from 'next/image'
 import styles from '../styles/Ejercicio3.module.css'
 import cls from 'classnames'
 import localFont from 'next/font/local'
@@ -6,6 +7,7 @@ import { db } from '../firebase/firebase'
 import { useAuth } from '../context/authContext'
 import { ref, child, get, set, update } from "firebase/database";
 import _ from 'lodash'
+import expli from '../public/assets/explicacion2.jpeg'
 
 
 const MichromaReg = localFont({ 
@@ -69,6 +71,7 @@ export default function Ejercicio3a({ action, action2 }) {
             <h1 className={cls('text-start')}>
               ESPERA LA EXPLICACIÓN ANTES DE CONTINUAR!
             </h1>
+            <Image className='img-fluid my-4' src={expli} alt='Problemas y Oportunidades de Crecimiento' width={1100} height={600} />
           </div>
         </div>
         </div>

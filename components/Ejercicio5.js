@@ -89,7 +89,7 @@ export default function Ejercicio5({ action, action2 }) {
 
           <div className={cls('text-start')}>
             <p className={cls('text-center')}>Causas</p>
-              <ul class="list-group">
+              <ul className="list-group">
 
               {listP.map((v, k) => {
                 let check = v.causaDeCausas
@@ -104,7 +104,7 @@ export default function Ejercicio5({ action, action2 }) {
                 return (
                   <>
                     { v.categoria == "C" && (
-                      <li class="list-group-item py-3" key={k}>
+                      <li className="list-group-item py-3" key={k}>
                       <div className="form-check">
                         <input className="form-check-input" onChange={toggleAction} defaultChecked={check} type="checkbox" value={v.dolencia} id="flexCheckDefault" />
                         <label className="form-check-label" htmlFor="flexCheckDefault">
@@ -119,7 +119,7 @@ export default function Ejercicio5({ action, action2 }) {
                 )
               })}
                 </ul>
-                <ul class="list-group">
+                <ul className="list-group">
               {listSeleccion.map((v) => {
                 let llave = v.key + 's'
                 let check = v.causaDeCausas
@@ -134,7 +134,7 @@ export default function Ejercicio5({ action, action2 }) {
                 return (
                   <>
                     { v.categoria == "C" && (
-                      <li class="list-group-item py-3" key={llave}>
+                      <li className="list-group-item py-3" key={llave}>
                       <div className="form-check"> 
                         <input className="form-check-input" onChange={toggleAction} defaultChecked={check} type="checkbox" value={v.dolencia} id="flexCheckDefault" />
                         <label className="form-check-label" htmlFor="flexCheckDefault">

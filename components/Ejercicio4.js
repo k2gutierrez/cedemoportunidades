@@ -75,7 +75,7 @@ export default function Ejercicio4({ action, action2 }) {
                 )
               })}
             </ul>*/}
-            <table class="table table-striped">
+            <table className="table table-striped">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -85,7 +85,7 @@ export default function Ejercicio4({ action, action2 }) {
             <tbody>
               { list.filter((word) => word.categoria == "C").map((v, k) => {
                 return (
-                  <tr>
+                  <tr key={k}>
                     <th scope="row">{ k +1 }</th>
                     <td>{ v.dolencia }</td>
                   </tr>
@@ -109,7 +109,7 @@ export default function Ejercicio4({ action, action2 }) {
                 )
               })}
             </ul>*/}
-            <table class="table table-striped">
+            <table className="table table-striped">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -119,7 +119,7 @@ export default function Ejercicio4({ action, action2 }) {
             <tbody>
               { list.filter((word) => word.categoria == "E").map((v, k) => {
                 return (
-                  <tr>
+                  <tr key={k}>
                     <th scope="row">{ k +1 }</th>
                     <td>{ v.dolencia }</td>
                   </tr>
@@ -144,7 +144,7 @@ export default function Ejercicio4({ action, action2 }) {
               })}
             </ul>*/}
 
-            <table class="table table-striped">
+            <table className="table table-striped">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -154,7 +154,7 @@ export default function Ejercicio4({ action, action2 }) {
             <tbody>
               { list.filter((word) => word.categoria == "N").map((v, k) => {
                 return (
-                  <tr>
+                  <tr key={k}>
                     <th scope="row">{ k +1 }</th>
                     <td>{ v.dolencia }</td>
                   </tr>

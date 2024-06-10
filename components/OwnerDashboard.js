@@ -31,6 +31,7 @@ export default function OwnerDashboard() {
     const { logout, currentUser } = useAuth()
     const [listS, setListS] = useState([])
     const [listP, setListP] = useState([])
+    const [completeList, setCompleteList] = useState([])
     const [idUser, setId] = useState('')
     const [users, setUsers] = useState([])
     const [usuario, setUsuario] = useState({})
@@ -44,6 +45,7 @@ export default function OwnerDashboard() {
         let arr1 = []
         let arr2 = []
         let array3 = []
+        let arrComplete = []
         const dbRef = ref(db)
 
         const usuario = await get(child(dbRef, idUser))
@@ -74,6 +76,7 @@ export default function OwnerDashboard() {
         if (getDolenciasP.exists()) {
             for (let x in getDolenciasP.val()) {
                 arr1.push(getDolenciasP.val()[x])
+                arrComplete.push(getDolenciasP.val()[x])
             }
             setListP(arr1)
         }
@@ -91,10 +94,12 @@ export default function OwnerDashboard() {
         if (getDolenciasS.exists()) {
             for (let x in getDolenciasS.val()) {
                 arr2.push(getDolenciasS.val()[x])
+                arrComplete.push(getDolenciasS.val()[x])
+                console.log(arrComplete)
             }
             setListS(arr2)
+            setCompleteList(arrComplete)
         }
-
         
 
     }
@@ -198,18 +203,24 @@ export default function OwnerDashboard() {
                         </div>
 
                         <div className='text-start my-5'>
-                            <p className={cls(MontserratExtraBold.className, '')}>PROBLEMAS Y OPORTUNIDADES – EJERCICIO INICIAL</p>
+                            {/*<p className={cls(MontserratExtraBold.className, '')}>PROBLEMAS Y OPORTUNIDADES – EJERCICIO INICIAL</p>*/}
                             <table className={cls(styles.tables, "table table-striped")}>
-
-                                <tbody>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">PROBLEMAS Y OPORTUNIDADES – EJERCICIO INICIAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody className='table-group-divider'>
 
                                     {listP.map((v, k) => {
 
                                         return (
                                             <tr>
-                                                <td scope="row" key={k}>
-                                                    <p>{v.dolencia}</p>
-                                                </td>
+                                                <th scope="row" key={k}>
+                                                    {k+1}
+                                                </th>
+                                                <td>{v.dolencia}</td>
                                             </tr>
 
                                         )
@@ -221,16 +232,24 @@ export default function OwnerDashboard() {
                         </div>
 
                         <div className='text-start my-5'>
-                            <p className={cls(MontserratExtraBold.className, '')}>SELECCIÓN CUESTIONARIO PROBLEMAS Y OPORTUNIDADES</p>
+                            {/*<p className={cls(MontserratExtraBold.className, '')}>SELECCIÓN CUESTIONARIO PROBLEMAS Y OPORTUNIDADES</p>*/}
                             <table className={cls(styles.tables, "table table-striped")}>
-
-                                <tbody>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">SELECCIÓN CUESTIONARIO PROBLEMAS Y OPORTUNIDADES</th>
+                                    </tr>
+                                </thead>
+                                <tbody  className='table-group-divider'>
                                     {listS.filter((word) => word.check == true).map((v, k) => {
 
                                         return (
                                             <tr>
-                                                <td scope="row" key={k}>
-                                                    <p>{v.dolencia}</p>
+                                                <th scope="row" key={k}>
+                                                    {k+1}
+                                                </th>
+                                                <td>
+                                                    {v.dolencia}
                                                 </td>
                                             </tr>
 
@@ -244,103 +263,93 @@ export default function OwnerDashboard() {
 
 
                         <div className='text-start my-5'>
-                            <p className={cls(MontserratExtraBold.className, '')}>PROBLEMAS CAUSA</p>
+                            {/*<p className={cls(MontserratExtraBold.className, '')}>PROBLEMAS CAUSA</p>*/}
                             <table className={cls(styles.tables, "table table-striped")}>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">PROBLEMAS CAUSA</th>
+                                    </tr>
+                                </thead>
+                                <tbody className='table-group-divider'>
 
-                                <tbody>
-
-                                    {listP.filter((word) => word.categoria == "C").map((v, k) => {
+                                    {completeList.filter((word) => word.categoria == "C").map((v, k) => {
 
                                         return (
                                             <tr>
-                                                <td scope="row" key={k}>
-                                                    <p>{v.dolencia}</p>
-
+                                                <th scope="row" key={k}>
+                                                    {k+1}
+                                                </th>
+                                                <td>
+                                                    {v.dolencia}
                                                 </td>
                                             </tr>
 
                                         )
                                     })}
-                                    {listS.filter((word) => word.categoria == "C").map((v, k) => {
-
-                                        return (
-                                            <tr>
-                                                <td key={k} >
-                                                    <p>{v.dolencia}</p>
-
-                                                </td>
-                                            </tr>
-
-                                        )
-                                    })}
+                                    
                                 </tbody>
                             </table>
 
                         </div>
 
                         <div className='text-start my-5'>
-                            <p className={cls(MontserratExtraBold.className, '')}>PROBLEMAS EFECTO</p>
+                            {/*<p className={cls(MontserratExtraBold.className, '')}>PROBLEMAS EFECTO</p>*/}
                             <table className={cls(styles.tables, "table table-striped")}>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">PROBLEMAS EFECTO</th>
+                                    </tr>
+                                </thead>
+                                <tbody className='table-group-divider'>
 
-                                <tbody>
-
-                                    {listP.filter((word) => word.categoria == "E").map((v, k) => {
+                                    {completeList.filter((word) => word.categoria == "E").map((v, k) => {
 
                                         return (
                                             <tr>
-                                                <td key={k} >
-                                                    <p>{v.dolencia}</p>
+                                                <th scope="row" key={k}>
+                                                    {k+1}
+                                                </th>
+                                                <td>
+                                                    {v.dolencia}
                                                 </td>
                                             </tr>
 
                                         )
                                     })}
-                                    {listS.filter((word) => word.categoria == "E").map((v, k) => {
-
-                                        return (
-                                            <tr>
-                                                <td key={k} className="list-group-item text-start">
-                                                    <p>{v.dolencia}</p>
-                                                </td>
-                                            </tr>
-
-                                        )
-                                    })}
+                                    
                                 </tbody>
                             </table>
 
                         </div>
 
                         <div className='text-start my-4'>
-                            <p className={cls(MontserratExtraBold.className, '')}>NO PROBLEMA</p>
+                        {/*<p className={cls(MontserratExtraBold.className, '')}>NO PROBLEMA</p>*/}
                             <table className={cls(styles.tables, "table table-striped")}>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">NO PROBLEMA</th>
+                                    </tr>
+                                </thead>
+                                <tbody className='table-group-divider'>
 
-                                <tbody>
-
-                                    {listP.filter((word) => word.categoria == "N").map((v, k) => {
+                                    {completeList.filter((word) => word.categoria == "N").map((v, k) => {
 
                                         return (
                                             <tr>
+                                                <th scope="row" key={k}>
+                                                    {k+1}
+                                                </th>
                                                 <td key={k} >
-                                                    <p>{v.dolencia}</p>
-
+                                                    {v.dolencia}
                                                 </td>
                                             </tr>
 
                                         )
                                     })}
-                                    {listS.filter((word) => word.categoria == "N").map((v, k) => {
-
-                                        return (
-                                            <tr>
-                                                <td key={k} >
-                                                    <p>{v.dolencia}</p>
-
-                                                </td>
-                                            </tr>
-
-                                        )
-                                    })}
+                                    
                                 </tbody>
                             </table>
                         </div>

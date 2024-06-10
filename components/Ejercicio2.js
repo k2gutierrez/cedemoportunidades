@@ -32,6 +32,9 @@ export default function Ejercicio2({ action, action2 }) {
   const [ListP, setListP] = useState([])
   const [newArr, setNewArr] = useState([])
 
+  let [sel, setSel] = useState(0) 
+  let [lp, setLP] = useState(0)
+
   {/*async function getList () {
     const dbRef = ref(db)
     const getDolencias = await get(child(dbRef, 'dolencias'))
@@ -66,6 +69,33 @@ export default function Ejercicio2({ action, action2 }) {
     
   }
 
+  async function getListLP() {
+    let newArray1 = []
+    const dbRef = ref(db)
+    const getDolenciasS = await get(child(dbRef, currentUser.uid + '/dolencias/listaP'))
+    if (getDolenciasS.exists()) {
+      for (let y in getDolenciasS.val()) {
+        newArray1.push(getDolenciasS.val()[y])
+      }
+      setLP(newArray1.length)    
+    }
+  }
+
+  async function getListSel() {
+    let newArray1 = []
+    const dbRef = ref(db)
+    const getDolenciasP = await get(child(dbRef, currentUser.uid + '/dolencias/Seleccion'))
+    if (getDolenciasP.exists()) {
+      for (let x in getDolenciasP.val()) {
+        if (getDolenciasP.val()[x].check == true) {
+          newArray1.push(getDolenciasP.val()[x])
+        }
+        
+      }
+      setSel(newArray1.length)
+    }
+  }
+
   async function addT (key, val) {
     const adding = await update(ref(db, currentUser.uid + `/dolencias/Seleccion/${key}/`), {
       check: val
@@ -84,6 +114,8 @@ export default function Ejercicio2({ action, action2 }) {
   useEffect(() => {
 
     getSeleccion()
+    getListLP()
+    getListSel()
 
   }, [])
 
@@ -120,7 +152,7 @@ export default function Ejercicio2({ action, action2 }) {
               } else if (check == false){
                 await addF(k, check)
               }
-
+              getListSel()
               
             }
 
@@ -140,6 +172,10 @@ export default function Ejercicio2({ action, action2 }) {
           </ul>
         </div>
       </div>
+      <p className='my-3'>Escribiste: {lp}</p>
+      <p className='my-3'>Seleccionaste: {sel}</p>
+      <p className='my-3'>Total: {sel+lp}</p>
+
       </div>
       
       <div className={cls('mt-3 mb-4 d-flex justify-content-center gap-3 px-2')}>

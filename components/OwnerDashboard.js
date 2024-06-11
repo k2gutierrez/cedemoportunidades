@@ -371,7 +371,55 @@ export default function OwnerDashboard() {
                                         </div>
                                         <div className={cls(styles.c1, "card-body text-primary")}>
 
-                                            <p><span className='text-dark'>Lastre: </span>{v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre}</p>
+                                            { v.lastre == undefined || v.lastre == null ? ('N/A') : 
+                                            
+                                            (
+                                                <div className="accordion" id="accordionPanelsStayOpenExample">
+                                                    <div className="accordion-item">
+                                                        <h2 className="accordion-header">
+                                                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                                            <p className='text-dark'>Lastre: { v.lastre }</p>
+                                                        </button>
+                                                        </h2>
+                                                        <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show">
+                                                            <div className="accordion-body">
+                                                                {v.lastre == 'Desenfoque' ? (
+                                                                <>
+                                                                    <p>En nuestro afán por crecer, acumulamos recursos y aprovechamos oportunidades que nos llevan a diversificar negocios, productos y mercados sin fin. El empresario ambicioso pronto se enfrenta a la realidad de querer abarcar más de lo que puede manejar.</p>
+                                                                    <p>Al consolidar globalmente nuestros negocios, productos y mercados, perdemos de vista las condiciones únicas de cada uno. Esto impide abordar a cada negocio como si fuera el único, atender a cada mercado de forma original y diferenciada, ya que los procesos se aglutinan y las prácticas comerciales se contaminan, debilitándonos frente a los especialistas.</p>
+                                                                    <p>Una atención desenfocada al mercado no genera valor y empobrece la competitividad de nuestra oferta. Nada puede sustituir el liderazgo competitivo en la creación de valor.</p>
+                                                                </>
+                                                                ): ('')}
+                                                                {v.lastre == 'Soledad' ? (
+                                                                <>
+                                                                    <p>El crecimiento empresarial dificulta desarrollar el equipo humano necesario en cada etapa. Tener personas capacitadas y comprometidas es esencial para crecer, pero muchos empresarios carecen de un equipo bien integrado, lo cual frena su avance.</p>
+                                                                    <p>A pesar de usar herramientas de Recursos Humanos como selección, capacitación, sistemas de remuneración, etc., muchos empresarios terminan dirigiendo solos durante años. Esta soledad persiste mientras no se aprende a compartir y delegar el poder, formando un equipo directivo complementario y compatible que sustente el crecimiento con efectividad.</p>
+                                                                    <p>El mayor costo de este aprendizaje es que, al crecer la organización, se exige un mejor desempeño en la gestión de la creación de valor, un rol que a menudo se descuida por centrarse en tareas operativas.</p>
+                                                                </>
+                                                                ): ('')}
+                                                                {v.lastre == 'Tolerancia' ? (
+                                                                <>
+                                                                    <p>Este reto del crecimiento está estrechamente ligado al éxito. Muchas compañías que han alcanzado el triunfo rápidamente adquieren el "cáncer de la tolerancia", manifestado en actitudes y comportamientos organizacionales relacionados con el manejo de recursos, procesos, oportunidades y resultados.</p>
+                                                                    <p>En su gloria, la empresa exitosa se duerme en sus laureles, se ciega y cae en vicios y omisiones no evaluadas debido a los logros obtenidos. La tolerancia propicia escondites de improductividad por falta de austeridad, alineación y exigencia, permitiendo que el valor generado se pierda en lugar de capturarlo.</p>
+                                                                    <p>La organización tolerante se aburguesa, despilfarra y pierde su espíritu de lucha, dejando pasar oportunidades y desestimando el valor de la exigencia. Nadie se preocupa por esto.</p>
+                                                                    <p>Solo cuando nos exigimos un desempeño creciente podemos vencer la tolerancia. Esto requiere una estructura con alto compromiso, una cultura de optimización incansable y un liderazgo enfocado en el alto rendimiento.</p>
+                                                                </>
+                                                                ): ('')}
+                                                                {v.lastre == 'Inercia' ? (
+                                                                <>
+                                                                    <p>Crecer ya no consiste en multiplicar más de lo mismo; en cada etapa debemos identificar las oportunidades actuales. Al expandir nuestras operaciones, es fundamental asegurar que estamos construyendo sobre bases sólidas.</p>
+                                                                    <p>Hoy, la solidez se define por nuevos paradigmas. Antes significaba terrenos propios, instalaciones grandes, muchos clientes, diversidad de productos e integración de procesos. Ahora, implica flexibilidad, rapidez de cambio, capacidad de aprendizaje, velocidad en el desarrollo de productos y facilidad para desinvertir.</p>
+                                                                    <p>La inercia nos ata a recursos y oportunidades del pasado, limitando nuestra evolución, mermando nuestra proactividad y aumentando los costos de oportunidad.</p>
+                                                                    <p>El lastre de la inercia describe la resistencia al cambio dentro de las organizaciones. Esta resistencia, que puede ser tanto consciente como inconsciente, se manifiesta en la preferencia por mantener el statu quo, una burocracia excesiva y una falta de agilidad para responder a nuevas oportunidades y desafíos del mercado.</p>
+                                                                </>
+                                                                ): ('')}
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+                                                </div>
+                                            )       
+                                            }
+
                                         </div>
                                     </div>
                                 )
@@ -400,7 +448,55 @@ export default function OwnerDashboard() {
                                         </div>
                                         <div className={cls(styles.c1, "card-body text-primary")}>
 
-                                            <p><span className='text-dark'>Lastre: </span>{v.lastre == undefined || v.lastre == null ? 'N/A' : v.lastre}</p>
+                                            { v.lastre == undefined || v.lastre == null ? ('N/A') : 
+                                            
+                                            (
+                                                <div className="accordion" id="accordionPanelsStayOpenExample">
+                                                    <div className="accordion-item">
+                                                        <h2 className="accordion-header">
+                                                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                                            <p className='text-dark'>Lastre: { v.lastre }</p>
+                                                        </button>
+                                                        </h2>
+                                                        <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show">
+                                                            <div className="accordion-body">
+                                                                {v.lastre == 'Desenfoque' ? (
+                                                                <>
+                                                                    <p>En nuestro afán por crecer, acumulamos recursos y aprovechamos oportunidades que nos llevan a diversificar negocios, productos y mercados sin fin. El empresario ambicioso pronto se enfrenta a la realidad de querer abarcar más de lo que puede manejar.</p>
+                                                                    <p>Al consolidar globalmente nuestros negocios, productos y mercados, perdemos de vista las condiciones únicas de cada uno. Esto impide abordar a cada negocio como si fuera el único, atender a cada mercado de forma original y diferenciada, ya que los procesos se aglutinan y las prácticas comerciales se contaminan, debilitándonos frente a los especialistas.</p>
+                                                                    <p>Una atención desenfocada al mercado no genera valor y empobrece la competitividad de nuestra oferta. Nada puede sustituir el liderazgo competitivo en la creación de valor.</p>
+                                                                </>
+                                                                ): ('')}
+                                                                {v.lastre == 'Soledad' ? (
+                                                                <>
+                                                                    <p>El crecimiento empresarial dificulta desarrollar el equipo humano necesario en cada etapa. Tener personas capacitadas y comprometidas es esencial para crecer, pero muchos empresarios carecen de un equipo bien integrado, lo cual frena su avance.</p>
+                                                                    <p>A pesar de usar herramientas de Recursos Humanos como selección, capacitación, sistemas de remuneración, etc., muchos empresarios terminan dirigiendo solos durante años. Esta soledad persiste mientras no se aprende a compartir y delegar el poder, formando un equipo directivo complementario y compatible que sustente el crecimiento con efectividad.</p>
+                                                                    <p>El mayor costo de este aprendizaje es que, al crecer la organización, se exige un mejor desempeño en la gestión de la creación de valor, un rol que a menudo se descuida por centrarse en tareas operativas.</p>
+                                                                </>
+                                                                ): ('')}
+                                                                {v.lastre == 'Tolerancia' ? (
+                                                                <>
+                                                                    <p>Este reto del crecimiento está estrechamente ligado al éxito. Muchas compañías que han alcanzado el triunfo rápidamente adquieren el "cáncer de la tolerancia", manifestado en actitudes y comportamientos organizacionales relacionados con el manejo de recursos, procesos, oportunidades y resultados.</p>
+                                                                    <p>En su gloria, la empresa exitosa se duerme en sus laureles, se ciega y cae en vicios y omisiones no evaluadas debido a los logros obtenidos. La tolerancia propicia escondites de improductividad por falta de austeridad, alineación y exigencia, permitiendo que el valor generado se pierda en lugar de capturarlo.</p>
+                                                                    <p>La organización tolerante se aburguesa, despilfarra y pierde su espíritu de lucha, dejando pasar oportunidades y desestimando el valor de la exigencia. Nadie se preocupa por esto.</p>
+                                                                    <p>Solo cuando nos exigimos un desempeño creciente podemos vencer la tolerancia. Esto requiere una estructura con alto compromiso, una cultura de optimización incansable y un liderazgo enfocado en el alto rendimiento.</p>
+                                                                </>
+                                                                ): ('')}
+                                                                {v.lastre == 'Inercia' ? (
+                                                                <>
+                                                                    <p>Crecer ya no consiste en multiplicar más de lo mismo; en cada etapa debemos identificar las oportunidades actuales. Al expandir nuestras operaciones, es fundamental asegurar que estamos construyendo sobre bases sólidas.</p>
+                                                                    <p>Hoy, la solidez se define por nuevos paradigmas. Antes significaba terrenos propios, instalaciones grandes, muchos clientes, diversidad de productos e integración de procesos. Ahora, implica flexibilidad, rapidez de cambio, capacidad de aprendizaje, velocidad en el desarrollo de productos y facilidad para desinvertir.</p>
+                                                                    <p>La inercia nos ata a recursos y oportunidades del pasado, limitando nuestra evolución, mermando nuestra proactividad y aumentando los costos de oportunidad.</p>
+                                                                    <p>El lastre de la inercia describe la resistencia al cambio dentro de las organizaciones. Esta resistencia, que puede ser tanto consciente como inconsciente, se manifiesta en la preferencia por mantener el statu quo, una burocracia excesiva y una falta de agilidad para responder a nuevas oportunidades y desafíos del mercado.</p>
+                                                                </>
+                                                                ): ('')}
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+                                                </div>
+                                            )       
+                                            }
+
                                         </div>
                                         
                                             
@@ -430,7 +526,7 @@ export default function OwnerDashboard() {
                         </div>
 
                     </div>
-                    <div className={cls(styles.textos, 'my-5')} id='pdf'>
+                    {/*<div className={cls(styles.textos, 'my-5')} id='pdf'>
                         <Image src={logo} alt='CEDEM' width={350} height={150} />
                         <div className='row justify-content-center align-items-center'>
                             
@@ -481,7 +577,7 @@ export default function OwnerDashboard() {
                             
                         </div>
 
-                    </div>
+                    </div>*/}
 
                 </div>
             </div>

@@ -33,6 +33,7 @@ export default function Resumen({ action1 }) {
 
   let [listS, setListS] = useState([])
   let [listP, setListP] = useState([])
+  let [complete, setComplete] = useState([])
   let [user, setUser] = useState({})
 
   let currentDate = new Date().toJSON().slice (0, 10)
@@ -40,6 +41,7 @@ export default function Resumen({ action1 }) {
   async function getList() {
     let newArray1 = []
     let newArray2 = []
+    let arrComplete = []
     const dbRef = ref(db)
 
     const getName = await get(child(dbRef, currentUser.uid))
@@ -62,6 +64,9 @@ export default function Resumen({ action1 }) {
       }
     }
     setListS(newArray2)
+    arrComplete = newArray1.concat(newArray2)
+    let arr = arrComplete.filter((word) => word.causaDeCausas == false)    
+    setComplete(arr)
   }
 
   useEffect(() => {
@@ -142,37 +147,66 @@ export default function Resumen({ action1 }) {
 
           </div>
 
+
+
+          <div className={cls('mb-4 text-start px-3')}>
+            
+            <table className={cls(styles.tables, "table table-striped")}>
+            <thead className={cls(styles.subtitle, styles.text)}>
+              <tr>
+                <th scope="col">#</th>
+                <th  scope="col">Otras causas</th>
+              </tr>
+            </thead>
+            <tbody className='table-group-divider'>
+
+            {complete.filter((word) => word.categoria == "C").map((v, k) => {
+
+              return (
+                <tr>
+                  <th scope="row" key={k}>
+                    {k+1}
+                  </th>
+                  <td>
+                    { v.dolencia } 
+                  </td>
+                </tr>
+                
+
+
+              )
+            })}
+            </tbody>
+            </table>
+          </div>
+
+
+
           <div className={cls('mb-4 px-3 text-start')}>
             
             <table className={cls(styles.tables, "table table-striped")}>
-            <thead className={cls(styles.subtitle)}>
+            <thead className={cls(styles.subtitle, styles.text)}>
               <tr>
-                <th scope="col">Efectos</th>
+                <th scope="col">#</th>
+                <th  scope="col">Efectos</th>
               </tr>
             </thead>
-            <tbody  className={styles.text}>
-              {listP.filter((word) => word.categoria == "E").map((v, k) => {
+            <tbody className='table-group-divider'>
+              {complete.filter((word) => word.categoria == "E").map((v, k) => {
 
                 return (
                   <tr>
-                    <td scope="row" key={k}>
-                      <p>{v.dolencia}</p>
+                    <th scope="row" key={k}>
+                      {k+1}
+                    </th>
+                    <td>
+                      { v.dolencia } 
                     </td>
                   </tr>
 
                 )
               })}
-              {listS.filter((word) => word.categoria == "E").map((v, k) => {
-
-                return (
-                  <tr>
-                    <td scope="row" key={k}>
-                      <p>{v.dolencia}</p>
-                    </td>
-                  </tr>
-
-                )
-              })}
+              
             </tbody>
             </table>
           </div>
@@ -180,35 +214,29 @@ export default function Resumen({ action1 }) {
           <div className={cls('mb-4 px-3 text-start')}>
 
             <table className={cls(styles.tables, "table table-striped")}>
-            <thead className={cls(styles.subtitle)}>
+            <thead className={cls(styles.subtitle, styles.text)}>
               <tr>
-                <th scope="col">No Problemas</th>
+                <th scope="col">#</th>
+                <th  scope="col">No Problemas</th>
               </tr>
             </thead>
-            <tbody  className={styles.text}>
+            <tbody className='table-group-divider'>
 
-              {listP.filter((word) => word.categoria == "N").map((v, k) => {
+              {complete.filter((word) => word.categoria == "N").map((v, k) => {
 
                 return (
                   <tr>
-                    <td scope="row" key={k}>
-                      <p>{v.dolencia}</p>
+                    <th scope="row" key={k}>
+                      {k+1}
+                    </th>
+                    <td>
+                      { v.dolencia } 
                     </td>
                   </tr>
 
                 )
               })}
-              {listS.filter((word) => word.categoria == "N").map((v, k) => {
-
-                return (
-                  <tr>
-                    <td scope="row" key={k}>
-                      <p>{v.dolencia}</p>
-                    </td>
-                  </tr>
-
-                )
-              })}
+              
 
             </tbody>
             </table>

@@ -15,7 +15,7 @@ export function AuthProvider ({ children }) {
     const [loading, setLoading] = useState(true)
     const userInfo = useRef()
 
-    function signup(email, password, name) {
+    function signup(email, password, name, country, state, city, tel) {
         createUserWithEmailAndPassword(auth, email, password).then((userC) => {
             const user = userC.user            
             const id = user.uid
@@ -23,6 +23,10 @@ export function AuthProvider ({ children }) {
                 EMAIL: email,
                 ID: id,
                 NAME: name,
+                COUNTRY: country,
+                STATE: state,
+                CITY: city,
+                TEL: tel,
                 NIVEL: '5'
             })
         })

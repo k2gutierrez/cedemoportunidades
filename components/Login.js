@@ -1,5 +1,9 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Country, State, City } from "country-state-city";
+import PhoneInput from 'react-phone-input-2';
+import '../node_modules/react-phone-input-2/lib/style.css'
+import Select from "react-select";
 import cls from 'classnames'
 import { useAuth } from '../context/authContext'
 import styles from '../styles/Login.module.css'
@@ -33,6 +37,18 @@ export default function Login() {
   const [error, setError] = useState(null)
   const [isLogIn, setIsLogIn] = useState(true)
 
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedState, setSelectedState] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(null);
+
+  const [tel, setTel] = useState('')
+
+  useEffect(() => {
+    console.log('Selected Country:', selectedCountry);
+    console.log('Selected state:', selectedState);
+    console.log('Selected city:', selectedCity);
+  }, [selectedCountry, selectedState, selectedCity]);
+
   const { login, signup, currentUser } = useAuth()
 
   async function submitHandler() {
@@ -57,12 +73,16 @@ export default function Login() {
         return
       }
 
-      await signup(email, password, nombre)
+      await signup(email, password, nombre, selectedCountry.name, selectedState.name, selectedCity.name, tel)
 
     }
 
     
 
+  }
+
+  const handle_phone = (value) => {
+    setTel(value)
   }
 
   return (
@@ -84,8 +104,80 @@ export default function Login() {
                 {error && <div className={cls(MontserratSemiBold.className, styles.error, 'py-2')}>{ error }</div>}
                 
                 {!isLogIn &&<div className={cls('')}>
-                  <label htmlFor="name" className="form-label">Nombre Completo</label>
-                  <input type="text" id="name" onChange={(e) => setNombre(e.target.value)} className={cls(styles.input, styles.text, "form-control")} value={nombre} />
+                  
+                  <div className='mb-1'>
+                    <label htmlFor="name" className="form-label">Nombre Completo</label>
+                    <input type="text" id="name" onChange={(e) => setNombre(e.target.value)} className={cls(styles.input, styles.text, "form-control")} value={nombre} />
+                  </div>
+
+                  <div className='mb-1'>
+                    <label htmlFor="pais" className="form-label">País</label>
+                    <Select
+                      id='pais'
+                      options={Country.getAllCountries()}
+                      getOptionLabel={(options) => {
+                        return options["name"];
+                      }}
+                      getOptionValue={(options) => {
+                        return options["name"];
+                      }}
+                      value={selectedCountry}
+                      onChange={(item) => {
+                        setSelectedCountry(item);
+                      }}
+                    />
+                  </div>
+
+                  <div className='mb-1'>
+                    <label htmlFor="estado" className="form-label">Estado</label>
+                    <Select
+                      id='estado'
+                      options={State?.getStatesOfCountry(selectedCountry?.isoCode)}
+                      getOptionLabel={(options) => {
+                        return options["name"];
+                      }}
+                      getOptionValue={(options) => {
+                        return options["name"];
+                      }}
+                      value={selectedState}
+                      onChange={(item) => {
+                        setSelectedState(item);
+                      }}
+                    />
+                  </div>
+
+                  <div className='mb-1'>
+                    <label htmlFor="ciudad" className="form-label">Ciudad</label>
+                    <Select
+                      id='ciudad'
+                      options={City.getCitiesOfState(
+                        selectedState?.countryCode,
+                        selectedState?.isoCode
+                      )}
+                      getOptionLabel={(options) => {
+                        return options["name"];
+                      }}
+                      getOptionValue={(options) => {
+                        return options["name"];
+                      }}
+                      value={selectedCity}
+                      onChange={(item) => {
+                        setSelectedCity(item);
+                      }}
+                    />
+                  </div>
+
+                 <div className=''>
+                  <label htmlFor="tel" className="form-label">Contacto</label>
+                    <PhoneInput
+                      inputStyle={{ maxWidth: '14rem' }}
+                      value={tel}
+                      country="mx"
+                      onChange={handle_phone}
+                    />
+                    <p>{tel}</p>
+                  </div> 
+
                 </div>
                 }
                 <div className={cls('')}>
